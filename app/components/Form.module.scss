@@ -1,0 +1,68 @@
+.formWrap{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 68px);
+  place-content: center;
+  place-items: center;
+  margin-inline: auto;
+
+
+.form{
+  display: grid;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+
+
+  label{
+    left: 16px;
+    position: absolute;
+    top: 8px;
+    transition: font-size .3s ease;
+  }
+
+  input[type=email],
+  input[type=password]{
+    border: none;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  input[type=email]:focus-visible,
+  input[type=password]:focus-visible{
+    outline: 1px solid red;
+  }
+
+  
+  .emailWrap,
+  .passwordWrap{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.8rem 1rem 6px;
+    position: relative;
+    transition: border-color .6s;
+  }
+
+  .emailWrap:focus-within,
+  .passwordWrap:focus-within{
+    border-color:#82bd69;
+    font-size: 12px;
+
+  
+  }
+
+  .emailWrap:focus-within input:focus + label,
+  .passwordlWrap:focus-within input:focus + label{
+    top:-10px;
+    left : -10px;
+  }
+
+  button[type=submit]{
+    height: 40px;
+  }
+}
+
+}
