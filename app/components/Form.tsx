@@ -1,8 +1,9 @@
 'use client'
-import style from "../components/Form.module.scss";
 import React from 'react'
 import { useFormState, useFormStatus } from "react-dom";
-import searchFn from "../utilieis/searchFn";
+import searchFn from "../util/searchFn";
+import styles from "../styles/Form.module.scss";
+
 
 const initialState = {
   message : "",
@@ -27,22 +28,22 @@ const Form = () => {
   
   return (
     <section
-      className={style.formWrap}
+      className={styles.formWrap}
     >
       
       <h1>로그인 페이지</h1>
       <form
-        className={style.form} 
+        className={styles.form} 
         action={formAction}>
 
           <div
-            className={style.emailWrap}
+            className={styles.emailWrap}
           >
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" />
           </div>
           <div
-            className={style.passwordWrap}
+            className={styles.passwordWrap}
           >
             <label htmlFor="password">비밀번호</label>
             <input type="password" name="password" id="password" autoComplete="off" />
