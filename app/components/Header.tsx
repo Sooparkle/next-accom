@@ -4,10 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Header.module.scss';
-import { LuMountainSnow } from "react-icons/lu";
-import { CgProfile } from "react-icons/cg";
 import { usePathname, useRouter } from 'next/navigation';
-import { CiMountain1, CiUser } from "react-icons/ci";
+import { CiMountain1, CiUser, CiMenuBurger } from "react-icons/ci";
 import SearchForm from './SearchForm';
 
 
@@ -51,6 +49,13 @@ export const Header = () => {
         </ul>
       </nav>
 
+      {/* 햄버거 메뉴 */}
+      {/* <div>
+        <CiMenuBurger
+          className={styles.mobileMenu}
+        />
+      </div> */}
+      
       {/* 검색 영역 */}
       <SearchForm />
     </header>

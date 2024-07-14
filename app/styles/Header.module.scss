@@ -1,3 +1,5 @@
+$mobile-breakpoint: 768px; 
+
 .header{
   height: 100%;
   box-shadow: 0 0 8px rgba(0,0, 0, .2);
@@ -6,9 +8,94 @@
     display: none;
   }
 
+  .mobileMenu{
+    display: block;
+
+  }
+
+    // 검색 영역
+    .searchFormWrap{
+      border: 1px solid black;
+      height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 10px;
+      padding : 0 1rem;
+      transition : all 500ms ease-in-out;
+
+      
+      form{
+        max-width: 400px;
+        min-width : 260px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        place-self: center;
+        border-radius: 50px;
+        background-color: #fff;
+      }
+  
+      .inputBtn{
+        display: flex;
+        gap: 10px;
+      
+        input{
+          border: none;
+          font-size: 16px;
+          width: 200px;
+        }
+      
+  
+        button{
+          all: unset;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #82bd69;
+          border-radius: 50%;
+          width: 34px;
+          height: 34px;
+          transition : all 500ms ease-in-out;
+
+    
+          svg{
+            width: 28px;
+            height: 28px;
+          }
+        }
+      }
+
+      .mobileMenu{
+        display: block;
+        height: 40px;
+        width: 40px;
+        place-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition : all 500ms ease-in-out;
+        
+        svg{
+          width : 18px;
+          height: 18px;
+        }
+
+        &:focus-visible{
+          background-color: #82bd69;
+        }
+      }
+  
+    }
+
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width:$mobile-breakpoint) {
 .header{
   .nav{
     display: block;
@@ -45,15 +132,41 @@
     }
   }
 
+  .mobileMenu{
+    display: none;
+  }
+
   svg{
     width:34px;
     height: 34px;
     color: #000;
 
     &:hover{
-      color: #82bd69;
+      color: #fff;
     }
   }
   
+
+  // 검색 영역
+  .searchFormWrap{
+    justify-content: center;
+
+    form{
+      width: 400px;
+    }
+
+    .inputBtn{
+
+      input{
+        width:300px;
+      }
+    }
+
+    .mobileMenu{
+      display: none;
+    }
+  }
 }
+
 }
+
