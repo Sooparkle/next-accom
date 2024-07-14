@@ -93,6 +93,62 @@ $mobile-breakpoint: 768px;
   
     }
 
+
+
+    .NotSearchFormWrap{
+      display: block;
+      border: 1px solid #eee;
+      height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 10px;
+      padding : 0 1rem;
+      transition : all 500ms ease-in-out;
+
+      .NotMobileMenu{
+        display: block;
+        height: 40px;
+        width: 40px;
+        place-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition : all 500ms ease-in-out;
+        position: relative;
+        
+        svg{
+          width : 18px;
+          height: 18px;
+        }
+
+        .notMobilePop{
+          background-color: #fff;
+          box-shadow: 0 4px 10px rgba(0,0, 0, .2);
+          position: absolute;
+          top: 0;
+          right: 0;
+          transform: translate(-10%, 30%);
+          border-radius: 1rem;
+          overflow: hidden;
+
+          ul{
+            min-width: 80px;
+            width: 100%;
+
+            li{
+              width: 150px;
+              padding:1.3rem 0;
+              border-bottom: 1px solid #cecece;
+            }
+          }
+
+        }
+      }
+    }
 }
 
 @media screen and (min-width:$mobile-breakpoint) {
@@ -166,7 +222,14 @@ $mobile-breakpoint: 768px;
       display: none;
     }
   }
+
+  // 검색 영역 외
+  .NotSearchFormWrap{
+    display: none;
+  }
 }
+
+
 
 }
 

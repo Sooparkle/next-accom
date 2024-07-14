@@ -7,14 +7,13 @@ import styles from '../styles/Header.module.scss';
 import { usePathname, useRouter } from 'next/navigation';
 import { CiMountain1, CiUser, CiMenuBurger } from "react-icons/ci";
 import SearchForm from './SearchForm';
+import NotSearchForm from './NotSearchForm';
 
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   
-  console.log("routher", router)
-  console.log("pathname", pathname)
   return (
     <header
       className={styles.header}
@@ -36,10 +35,10 @@ export const Header = () => {
           </li>
 
           <li
-            className={`${pathname === "/sign-in" ? styles.active : ""}`}
+            className={`${pathname === "/mypage" ? styles.active : ""}`}
           >
             <Link
-            href="/sign-in"
+            href="/mypage"
             >
             <CiUser 
             className={styles.profile}
@@ -49,15 +48,14 @@ export const Header = () => {
         </ul>
       </nav>
 
-      {/* 햄버거 메뉴 */}
-      {/* <div>
-        <CiMenuBurger
-          className={styles.mobileMenu}
-        />
-      </div> */}
+      {
+        !(pathname === "/") && <NotSearchForm />
+      }
+
+      
       
       {/* 검색 영역 */}
-      <SearchForm />
+      {pathname === '/' &&  <SearchForm />}
     </header>
 
   )

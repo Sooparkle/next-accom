@@ -25,6 +25,7 @@ const initialState = {
 
 const Form = () => {
   const [state, formAction ] = useFormState(searchFn, initialState)
+  const isLogin = true
   
   return (
     <section
