@@ -11,8 +11,8 @@ import NotSearchForm from './NotSearchForm';
 
 
 export const Header = () => {
-  const router = useRouter();
   const pathname = usePathname();
+  const isMypageIncluded = pathname.includes('/mypage');
   
   return (
     <header
@@ -35,7 +35,7 @@ export const Header = () => {
           </li>
 
           <li
-            className={`${pathname === "/mypage" ? styles.active : ""}`}
+            className={`${isMypageIncluded ? styles.active : ""}`}
           >
             <Link
             href="/mypage"
