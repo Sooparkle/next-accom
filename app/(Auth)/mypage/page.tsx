@@ -48,7 +48,10 @@ const page = () => {
           </li>
           <li>
             <p>찜한 숙소</p>
-            <p>9</p>
+            <Link
+              href="/mypage/like"
+            >9
+            </Link>
           </li>
 
         </ul>
