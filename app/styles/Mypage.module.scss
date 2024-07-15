@@ -6,7 +6,7 @@ $tertiary-color : #d3eac8;
 .mypageMain{
   max-width: 1100px;
   margin-inline: auto;
-  // height: calc(100vh - 68px);
+  margin-top: 68px;;
   display: grid;
   gap: 2rem;
   padding: 0 1rem;
@@ -213,6 +213,105 @@ $tertiary-color : #d3eac8;
       background-color: $primary-color;
       color: #fff;
     }
+  }
+
+
+
+
+
+  // Reservation Area
+
+  .reservationListWrap{
+    display: grid;
+    gap: 2.8rem;
+    
+    li{
+      // display:grid;
+      // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      place-content: center;
+      width: 100%;
+
+      // reservation Imag
+      .reservationEachImageWrap{
+        position: relative;
+        width: 120px;
+        height: 120px;
+        flex-basis: 150px;
+        
+        img{
+          border-radius: .5rem;
+          object-fit: cover;
+        }
+      }
+
+      //reservation Detail area
+      .reservationDetail{
+        display: grid;
+        gap: 12px;
+        place-self: center;
+        flex: 3;
+        flex-shrink: 1;
+        flex-grow: 2;
+
+        p{
+          &:nth-of-type(1){
+            font-size: 18px;
+          }
+          &:nth-of-type(2){
+            font-weight: 500;
+          }
+          &:nth-of-type(3){
+            font-size: 12px;
+          }
+        }
+      }
+
+      //reservation Status area
+      .reservationStatus{
+        display: grid;
+        place-self: center;
+        gap: 20px;
+        text-align: center;
+        flex: 1;
+        flex-grow: 1;
+        flex-shrink: 2;
+
+        p{
+          &:nth-of-type(1){
+            font-size: 18px;
+          }
+          &:nth-of-type(2){
+            font-weight: 500;
+          }
+        }
+
+        .reservationCancelBtn{
+          all: unset;
+          min-width: 40px;
+          width: 100%;
+          margin-inline: auto;
+          height: 32px;
+          background-color: #ebebeb;
+          border-radius: .2rem;
+          font-size: 12px;
+          transition: background-color 600ms ease-in-out;
+
+          &:hover{
+            background-color: #cecece;
+
+          }
+
+          
+        }
+      }
+    }
+
+
+
+
   }
 }
 

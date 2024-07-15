@@ -1,8 +1,14 @@
 $mobile-breakpoint: 768px; 
 
 .header{
-  height: 100%;
+  height: 68px;
+  width: 100%;
   box-shadow: 0 0 8px rgba(0,0, 0, .2);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+
 
   .nav{
     display: none;
@@ -15,7 +21,6 @@ $mobile-breakpoint: 768px;
 
     // 검색 영역
     .searchFormWrap{
-      border: 1px solid black;
       height: 68px;
       display: flex;
       justify-content: space-between;
@@ -28,11 +33,11 @@ $mobile-breakpoint: 768px;
       form{
         max-width: 400px;
         min-width : 260px;
-        height: 50px;
+        height: 46px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #ccc;
+        box-shadow: 0 4px 16px rgba(0,0, 0, .05);
         place-self: center;
         border-radius: 50px;
         background-color: #fff;

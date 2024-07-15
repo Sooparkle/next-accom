@@ -41,7 +41,10 @@ const page = () => {
         >
           <li>
             <p>예약한 숙소</p>
-            <p>9</p>
+            <Link
+              href="/mypage/reservation"
+            >9
+            </Link>
           </li>
           <li>
             <p>찜한 숙소</p>
@@ -105,11 +108,13 @@ const page = () => {
         <p className={styles.version} >현재 버전 2.01.</p>
       </section>
 
+      {/* button area */}
       <button
         className={styles.logout}
       >
         Log-Out
       </button>
+
     </main>
   )
 }
