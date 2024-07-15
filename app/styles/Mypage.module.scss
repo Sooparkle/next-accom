@@ -87,13 +87,6 @@ $tertiary-color : #d3eac8;
     }
 
     li{
-      // &:not(:nth-last-of-type(1)){
-      //   width: 100%;
-      //   height: 80px;
-      //   background-color: rgb(135, 161, 237);
-      //   border-radius: 1rem;
-      //   position: relative;
-      // }
 
 
       .name,
@@ -140,7 +133,7 @@ $tertiary-color : #d3eac8;
           color: $primary-color;
           font-size: 22px;
           font-weight: 900;
-          padding: 0.8rem 1.2rem;
+          padding: 0.8rem ;
           border-radius: 0.8rem;
 
           &:hover{
@@ -232,7 +225,8 @@ $tertiary-color : #d3eac8;
 
 
 
-  // Reservation Area
+  // Reservation 
+  // Area
 
   .reservationListWrap{
     display: grid;
@@ -322,6 +316,95 @@ $tertiary-color : #d3eac8;
       }
     }
 
+  }
+
+
+
+  // Likes
+  // Area
+  .likesListWrap{
+    display: grid;
+    gap: 1rem;
+
+    li{
+      border-radius: 0.8rem;
+      background-color: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+      padding: .8rem 1.2rem;
+      position: relative;
+
+      .likesDetailWrap{
+        gap: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        place-content: center;
+        width: 100%;
+        margin-top: 10px;
+      
+
+        // likes Imag area
+        .likesEachImageWrap{
+          position: relative;
+          width: 120px;
+          height: 120px;
+          flex-basis: 150px;
+          
+          img{
+            border-radius: .5rem;
+            object-fit: cover;
+          }
+        }
+
+        //likes Detail area
+        .likesDetail{
+          display: grid;
+          gap: 20px;
+          place-self: center;
+          flex: 3;
+          flex-shrink: 1;
+          flex-grow: 2;
+
+          p{
+            &:nth-of-type(1){
+              // width: 200px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;  
+              -webkit-box-orient: vertical;
+            }
+          }
+
+          .likesDetailPrice{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+        }
+        
+        //likea Cancel area
+        .likesCancelBtn{
+          all:unset;
+          position: absolute;
+          padding: 10px;
+          top: 0px;
+          right: 2px;
+          cursor: pointer;
+
+          svg{
+            width: 30px;
+            height: 30px;
+            stroke: gray;
+          }
+
+
+        }
+    }
+
+
+
+    }
+      
   }
 
 

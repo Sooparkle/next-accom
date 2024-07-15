@@ -1,4 +1,8 @@
-$mobile-breakpoint: 768px; 
+$primary-color : #82bd69;
+$secondary-color : #3d692c;;
+$tertiary-color : #d3eac8;
+
+$mobile-breakpoint: 768px;
 
 .header{
   height: 68px;
@@ -136,8 +140,8 @@ $mobile-breakpoint: 768px;
           position: absolute;
           top: 0;
           right: 0;
-          transform: translate(-10%, 30%);
-          border-radius: 1rem;
+          transform: translate(0, 40%);
+          border-radius: .6rem;
           overflow: hidden;
 
           ul{
@@ -146,8 +150,11 @@ $mobile-breakpoint: 768px;
 
             li{
               width: 150px;
-              padding:1.3rem 0;
-              border-bottom: 1px solid #cecece;
+              padding:1.1rem 0;
+              &:hover{
+                color:$primary-color;
+                font-weight: 700;
+              }
             }
           }
 

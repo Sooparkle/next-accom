@@ -25,7 +25,8 @@ const page = () => {
           <button
             className={styles.edit}
           >
-            <BsPencilFill />
+            <BsPencilFill 
+            />
           </button>
         </div>
 
@@ -49,7 +50,7 @@ const page = () => {
           <li>
             <p>찜한 숙소</p>
             <Link
-              href="/mypage/like"
+              href="/mypage/likes"
             >9
             </Link>
           </li>
@@ -57,27 +58,6 @@ const page = () => {
         </ul>
 
 
-
-        {/* <ul>
-          <li>
-            <p className={styles.name} >서핑하우스</p>
-            <p className={styles.period} >2024-04-25 ~ 2024-04-27</p>
-            <p className={styles.status} >예약완료</p>
-          </li>
-          <li>
-            <p className={styles.name} >서핑하우스</p>
-            <p className={styles.period} >2024-04-25 ~ 2024-04-27</p>
-            <p className={styles.status} >예약완료</p>
-          </li>
-          <li>
-          ...
-          </li>
-        </ul>
-
-        <Link 
-            className={styles.reservationDetail}
-            href=""
-          >더 보기</Link> */}
         
       </section>
 
@@ -85,16 +65,14 @@ const page = () => {
       <section
         className={styles.setting}
       >
-        <h3>세팅</h3>
         <ul>
           <li
-          
           >
-            <p>환경설정</p>
+            <p>알람 설정</p>
             <BsChevronRight />
           </li>
           <li>
-            <p>공지사항</p>
+            <p>쿠폰</p>
             <BsChevronRight />
           </li>
           <li>
