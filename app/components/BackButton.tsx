@@ -1,12 +1,18 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from 'next/link';
+import React from 'react';
+import styles from '../styles/Mypage.module.scss';
 
 export const BackButton = () => {
 
   return (
-    <Link
-      href="/mypage"
-    >뒤로가기</Link>
+    <div
+      className={styles.backBtn}
+    >
+      <Link
+        href="/mypage"
+        >뒤로가기
+      </Link>
+    </div>
   )
 }
 

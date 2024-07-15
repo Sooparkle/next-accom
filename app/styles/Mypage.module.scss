@@ -309,9 +309,32 @@ $tertiary-color : #d3eac8;
       }
     }
 
-
-
-
   }
+
+
+  // Back button area
+  .backBtn{
+    width: 150px;
+    height: 50px;
+    margin-inline: auto;
+    border-radius: .5rem;
+    background-color: $primary-color;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    transition: all 600ms ease-in-out;
+
+    &:hover{
+      background-color: $tertiary-color;
+      font-size: 18px;
+      font-weight: 700;
+
+    }
+  }
+
+
+
 }
 
