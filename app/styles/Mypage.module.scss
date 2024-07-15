@@ -334,7 +334,7 @@ $tertiary-color : #d3eac8;
       position: relative;
 
       .likesDetailWrap{
-        gap: 1rem;
+        gap: 1.2rem;
         display: flex;
         flex-wrap: wrap;
         place-content: center;
@@ -345,9 +345,9 @@ $tertiary-color : #d3eac8;
         // likes Imag area
         .likesEachImageWrap{
           position: relative;
-          width: 120px;
+          width: 150px;
           height: 120px;
-          flex-basis: 150px;
+          flex-basis: 210px;
           
           img{
             border-radius: .5rem;
@@ -370,7 +370,7 @@ $tertiary-color : #d3eac8;
               overflow: hidden;
               text-overflow: ellipsis;
               display: -webkit-box;
-              -webkit-line-clamp: 2;  
+              -webkit-line-clamp: 3;  
               -webkit-box-orient: vertical;
             }
           }
