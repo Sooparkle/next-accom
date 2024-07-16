@@ -41,7 +41,7 @@ $mobile-breakpoint: 768px;
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0 4px 16px rgba(0,0, 0, .05);
+        box-shadow: 0 4px 16px rgba(0,0, 0, .16);
         place-self: center;
         border-radius: 50px;
         background-color: #fff;
@@ -136,7 +136,7 @@ $mobile-breakpoint: 768px;
 
         .notMobilePop{
           background-color: #fff;
-          box-shadow: 0 4px 10px rgba(0,0, 0, .2);
+          box-shadow: 0 4px 10px rgba(0,0, 0, .07);
           position: absolute;
           top: 0;
           right: 0;
@@ -165,8 +165,10 @@ $mobile-breakpoint: 768px;
 
 @media screen and (min-width:$mobile-breakpoint) {
 .header{
+
   .nav{
     display: block;
+    border-bottom: 1px solid #eee;
     ul{
       height: 68px;
       display: flex;
@@ -221,6 +223,8 @@ $mobile-breakpoint: 768px;
 
     form{
       width: 400px;
+      box-shadow: 0 0 8px rgba(0,0, 0, .05);
+
     }
 
     .inputBtn{

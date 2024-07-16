@@ -46,6 +46,7 @@ export const Header = () => {
           </Link>
           </li>
         </ul>
+
       </nav>
 
       {
@@ -53,9 +54,9 @@ export const Header = () => {
       }
 
       
-      
-      {/* 검색 영역 */}
       {pathname === '/' &&  <SearchForm />}
+      
+
     </header>
 
   )

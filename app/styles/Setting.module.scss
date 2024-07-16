@@ -55,6 +55,7 @@ $tertiary-color : #d3eac8;
         width: 100%;
         border-radius: 0.6rem;
         position: relative;
+        
         padding: .8rem 1rem;
         box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
 
@@ -86,9 +87,100 @@ $tertiary-color : #d3eac8;
 
       //coupons inoformation
       .couponsInfo{
-
+        place-self: center;
       }
 
     }
   }
+
+
+
+
+  // faq
+  // area
+  .faqWrap{
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    padding: .8rem 1.2rem;
+
+    h4{
+      margin-bottom: 10px;
+    }
+
+
+    .categoryWrap{
+      
+      ul {
+        display: flex;
+        gap: .6rem;
+        
+      }
+      
+      .category{
+        padding: .3rem 1rem;
+        border: 1px solid #cecece;
+        border-radius: 20px;
+
+        &.categoryAll{
+          background-color: #ccc;
+        }
+
+        &:hover,
+        &:focus-visible
+        {
+          background-color: $primary-color;
+        }
+      }
+
+    }
+
+
+
+    // faq body 
+    .faqBodyWrap{
+      margin-top: 30px;
+
+      details {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+      
+        summary {
+          cursor: pointer;
+          font-weight: bold;
+          padding: 5px;
+          outline: none;
+          transition: all 0.3s ease;
+      
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      
+        &[open] {
+          summary {
+            background-color: #e0e0e0;
+            border-bottom: 1px solid #ccc;
+          }
+      
+        }
+
+        .contents{
+          padding: 1rem 0.5rem;
+        }
+
+      }
+      
+
+
+
+      summary{
+        
+      }
+    }
+  }
+
 }

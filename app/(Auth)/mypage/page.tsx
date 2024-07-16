@@ -66,17 +66,24 @@ const page = () => {
         className={styles.setting}
       >
         <ul>
-          <li
-          >
-            <p>알람 설정</p>
-            <BsChevronRight />
-          </li>
           <li>
             <p>쿠폰</p>
             <BsChevronRight />
           </li>
           <li>
+            <p>알람 설정</p>
+            <BsChevronRight />
+          </li>
+          <li>
             <p>개인 약관 및 이용 정책</p>
+            <BsChevronRight />
+          </li>
+          <li>
+            <p>이벤트</p>
+            <BsChevronRight />
+          </li>
+          <li>
+            <p>자주 하는 질문</p>
             <BsChevronRight />
           </li>
           <div
