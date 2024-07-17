@@ -1,9 +1,17 @@
 import React from 'react';
 import styles from '../styles/Footer.module.scss';
+import Link from 'next/link';
 
 export const Footer = () => {
   return (
     <footer className={styles.footerWrap}>
+      <div
+        className={styles.footerHeader}
+      >
+        <Link href='#' >이용약관</Link>
+        <Link href='#' >개인정보 처리방침</Link>
+      </div>
+
       <section>
         <p><strong><i>좀쉼쉼</i></ strong></p>
         <p>주소 : 서울특별시 어딘가 산속로 숨어지내리 | 대표이사 : 임수한 | 사업자등록번호 : 154-09-94750</p>
