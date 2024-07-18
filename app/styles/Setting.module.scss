@@ -183,4 +183,135 @@ $tertiary-color : #d3eac8;
     }
   }
 
+
+
+  // Event notice
+  // Area
+
+  .eventNoticeWrap{
+
+    .eventHead{
+      display: grid;
+      grid-template-columns: 1fr 6fr;
+      place-items: center;
+      padding: 1.2rem 0;
+      font-size: 16px;
+      font-weight: 600;
+      border-bottom:2px solid #ccc;
+    }
+
+    ul{
+
+      li{  
+        display: grid;
+        grid-template-columns: 1fr 6fr;
+        place-content: center;
+        padding: 1rem 0;
+        cursor: pointer;
+
+        &:not(:last-child){
+        border-bottom: 1px solid #ccc;
+        
+      }
+      div:nth-of-type(1){
+        place-self: center;
+      }
+      }
+    }
+  }
+
+
+
+
+
+  // notification
+  // Area
+
+  .restOfNotification{
+    display: grid;
+    gap: 1.8rem;
+    margin-top: 40px;
+    padding-left: 1.5rem;
+  }
+
+  .allNotification,
+  .banner,
+  .notificationEmail,
+  .SMS
+  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+
+    svg{
+      position: absolute;
+      top:6px;
+      left: -12px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+    dl{
+
+      dd{
+        color: rgb(170, 170, 170);
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    }
+
+
+  .notificationLabel,
+  .bannerLabel,
+  .notificationEmailLabel,
+  .SMSLabel
+  {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px; 
+    flex-shrink: 0;
+
+    input{
+      opacity: 0;
+      width: 0;
+      height: 0; 
+
+      &:checked + .sider{
+        background-color: $primary-color;
+      }
+      &:checked + .sider::before{
+        transform: translateX(26px);
+      }
+    }
+
+    .sider{
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #ccc;
+      transition: 400ms;
+      border-radius: 34px;
+
+      &::before{
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: #fff;
+        transition: 400ms;
+        border-radius: 50%;
+      }
+
+      
+    }
+  }
+
 }

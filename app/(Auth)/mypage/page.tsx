@@ -75,10 +75,6 @@ const page = () => {
             <BsChevronRight />
           </li>
           <li>
-            <p>개인 약관 및 이용 정책</p>
-            <BsChevronRight />
-          </li>
-          <li>
             <p>이벤트</p>
             <BsChevronRight />
           </li>
@@ -97,11 +93,13 @@ const page = () => {
       </section>
 
       {/* button area */}
-      <button
-        className={styles.logout}
-      >
-        Log-Out
-      </button>
+
+        <button
+          className={styles.logout}
+        >
+          Log-Out
+        </button>
+
 
     </main>
   )

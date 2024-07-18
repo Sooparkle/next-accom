@@ -2,14 +2,15 @@ import React from 'react';
 import styles from '../styles/Footer.module.scss';
 import Link from 'next/link';
 
+
 export const Footer = () => {
   return (
     <footer className={styles.footerWrap}>
       <div
         className={styles.footerHeader}
       >
-        <Link href='#' >이용약관</Link>
-        <Link href='#' >개인정보 처리방침</Link>
+        <Link href='/termpolicy' >이용약관</Link>
+        <Link href='/privacypolicy' >개인정보 처리방침</Link>
       </div>
 
       <section>

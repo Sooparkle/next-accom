@@ -11,7 +11,17 @@ $tertiary-color : #d3eac8;
   gap: 2rem;
   padding: 0 1rem;
 
-
+.visualHidden{
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
 
   //section common
   section{
@@ -41,6 +51,8 @@ $tertiary-color : #d3eac8;
       border-radius: 100%;
     }
 
+
+    //edit button
     .edit{
       all:unset;
       position: absolute;
@@ -54,7 +66,20 @@ $tertiary-color : #d3eac8;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, .05);  
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);  
+      transition: all 0.3s ease-in-out;
+
+
+
+      &:hover,
+      &:focus-visible
+      {
+        transform: translateY(-5px); 
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); 
+      }
+      &:focus-visible{
+        outline: 2px solid #bd0e0e;
+      }
 
 
       svg{
@@ -63,6 +88,7 @@ $tertiary-color : #d3eac8;
         height: 14px;
       }
       
+
     }
   }
 
@@ -203,24 +229,6 @@ $tertiary-color : #d3eac8;
       color: #eeeeee;
     }
   }
-
-  .logout{
-    all: unset;
-    width: 180px;
-    height: 50px;
-    margin-inline:auto ;
-    text-align: center;
-    color : $secondary-color;
-    border-radius: 0.8rem;
-    background-color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);  
-    
-    &:hover{
-      background-color: $primary-color;
-      color: #fff;
-    }
-  }
-
 
 
 
@@ -408,28 +416,48 @@ $tertiary-color : #d3eac8;
   }
 
 
-  // Back button area
-  .backBtn{
-    width: 150px;
+
+  .logout{
+    all: unset;
+    width: 180px;
     height: 50px;
-    margin-inline: auto;
-    border-radius: .5rem;
-    background-color: $primary-color;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
-    transition: all 600ms ease-in-out;
-
+    margin-inline:auto ;
+    text-align: center;
+    color : $secondary-color;
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);  
+    
     &:hover{
-      background-color: $tertiary-color;
-      font-size: 18px;
-      font-weight: 700;
-
+      background-color: $primary-color;
+      color: #fff;
     }
   }
 
+.resign{
+  all:unset; 
+  width: 80px;
+  height: 50px;
+  text-align: center;
+  color : $secondary-color;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .05);  
+  color: rgb(174, 73, 73);
+}
+
+
+
+
+
+  // Lower part Button 
+  // area
+
+  .mypageBtns{
+    display: flex;
+    gap: 1rem;
+    place-items: center;
+  }
 
 
 }
