@@ -13,7 +13,7 @@ $tertiary-color : #d3eac8;
 
 
 
-  //section common
+  //common : section common
   section{
     border-radius: 0.8rem;
     background-color: #fff;
@@ -22,7 +22,7 @@ $tertiary-color : #d3eac8;
 
   }
 
-  // head area
+  //common :  head area
   .head {
     display: flex;
     gap: 1.2rem;
@@ -313,5 +313,69 @@ $tertiary-color : #d3eac8;
       
     }
   }
+
+
+
+
+  // Notice 
+  // area
+.mypageNotice{
+  border-radius: 0.8rem;
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+  padding: .8rem 1.2rem;
+
+  .noticeHeader{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    height: 60px;
+    border-bottom: 2px solid #ccc;
+    p{
+      &:nth-of-type(1){
+        width: 60px;
+        text-align: center;
+      }
+
+      &:nth-of-type(2){
+        flex:4;
+        text-align: center;
+      }
+    }
+  }
+
+
+  .noticeListWrap{
+    
+    li{
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      &:not(:nth-last-of-type(1)){
+        border-bottom: 1px solid #ccc;
+      }
+      &:hover{
+        background-color: $tertiary-color;
+      }
+    }
+
+    .noticeEachId{
+      max-width: 60px;
+      width: 100%;
+      text-align: center;
+    }
+    .noticeEachTitle{
+      font-size: 18px;
+      padding: 1rem 0;
+      letter-spacing: -.5px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
+    
+  }
+}
+
 
 }
