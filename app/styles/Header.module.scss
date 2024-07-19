@@ -16,6 +16,10 @@ $mobile-breakpoint: 768px;
 
   .nav{
     display: none;
+
+    .headerMypageIcon{
+      position: relative;
+    }
   }
 
   .mobileMenu{
@@ -161,6 +165,58 @@ $mobile-breakpoint: 768px;
         }
       }
     }
+
+
+
+  //popup area
+  .headerPopupWrap{
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    width: 200px;
+    display: grid;
+    align-items: center;
+    border: none;
+    border-radius: .8rem;
+    transition : all 500ms ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0, 0, .07);
+    overflow: hidden;
+
+    z-index: 50;
+
+    .popupImage{
+      background-color: #bebebe;
+      object-fit:cover;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      place-items: center;
+      place-content: center;
+      gap: 1rem;
+
+    }
+
+    ul{
+      display: grid;
+      
+
+      li{
+        padding: .8rem 0;
+        padding-left: 1rem;
+        cursor: pointer;
+
+        &:hover{
+          background-color: $primary-color;
+        }
+        &:not(:nth-of-type(1)){
+          border-top: 1px solid #ccc;
+        }
+      }
+    }
+  }
+
+
 }
 
 @media screen and (min-width:$mobile-breakpoint) {
@@ -169,7 +225,7 @@ $mobile-breakpoint: 768px;
   .nav{
     display: block;
     border-bottom: 1px solid #eee;
-    ul{
+    > ul{
       height: 68px;
       display: flex;
       justify-content: space-between;
@@ -212,7 +268,7 @@ $mobile-breakpoint: 768px;
     color: #000;
 
     &:hover{
-      color: #fff;
+      color: $primary-color;
     }
   }
   
