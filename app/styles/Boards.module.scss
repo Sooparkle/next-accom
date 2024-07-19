@@ -1,0 +1,169 @@
+$primary-color : #82bd69;
+$secondary-color : #3d692c;;
+$tertiary-color : #d3eac8;
+
+
+.mypageMain{
+  max-width: 1100px;
+  margin-inline: auto;
+  margin-top: 68px;;
+  display: grid;
+  gap: 2rem;
+  padding: 0 1rem;
+
+
+
+  //common : section common
+  section{
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    padding: .8rem 1.2rem;
+
+  }
+
+  //common :  head area
+  .head {
+    display: flex;
+    gap: 1.2rem;
+    place-items: center;
+    margin-top: 1rem;
+  }
+
+
+
+  // faq
+  // area
+  .faqWrap{
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    padding: .8rem 1.2rem;
+
+    h4{
+      margin-bottom: 10px;
+    }
+
+
+    .categoryWrap{
+      
+      ul {
+        display: flex;
+        gap: .6rem;
+        
+      }
+      
+      .category{
+        padding: .3rem 1rem;
+        border: 1px solid #cecece;
+        border-radius: 20px;
+
+        &.categoryAll{
+          background-color: #ccc;
+        }
+
+        &:hover,
+        &:focus-visible
+        {
+          background-color: $primary-color;
+        }
+      }
+
+    }
+
+
+
+    // faq body 
+    .faqBodyWrap{
+      margin-top: 30px;
+
+      details {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+      
+        summary {
+          cursor: pointer;
+          font-weight: bold;
+          padding: 5px;
+          outline: none;
+          transition: all 0.3s ease;
+      
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      
+        &[open] {
+          summary {
+            background-color: #e0e0e0;
+            border-bottom: 1px solid #ccc;
+          }
+      
+        }
+
+        .contents{
+          padding: 1rem 0.5rem;
+        }
+
+      }
+      
+
+
+
+      summary{
+        
+      }
+    }
+  }
+
+
+
+   // Event notice
+  // Area
+
+  .eventNoticeWrap{
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    padding: .8rem 1.2rem;
+
+    .eventHead{
+      display: grid;
+      grid-template-columns: 1fr 6fr;
+      place-items: center;
+      padding: 1.2rem 0;
+      font-size: 16px;
+      font-weight: 600;
+      border-bottom:2px solid #ccc;
+    }
+
+    ul{
+
+      li{  
+        display: grid;
+        grid-template-columns: 1fr 6fr;
+        place-content: center;
+        padding: 1rem 0;
+        cursor: pointer;
+
+        &:not(:last-child){
+        border-bottom: 1px solid #ccc;
+        
+      }
+      div:nth-of-type(1){
+        place-self: center;
+      }
+      }
+    }
+  }
+
+
+
+
+
+
+}
+

@@ -1,9 +1,11 @@
 'use client'
 
 import React , {useState} from 'react'
-import styles from '../../../styles/Setting.module.scss';
-import faq from '../../../data/faq';
+import styles from '../../styles/Boards.module.scss';
+import faq from '../../data/faq';
 import BackButton from '@/app/components/BackButton';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
 
 type contentsType = {
   id : number,
@@ -35,6 +37,8 @@ const handleFilter = (i:string) =>{
 let dataShowed= filtered?.length ? filtered : faq
 
   return (
+    <>
+    <Header type=''/>
     <main
       className={styles.mypageMain}
     >
@@ -98,7 +102,8 @@ let dataShowed= filtered?.length ? filtered : faq
       </article>
       <BackButton />
     </main>
-
+  <Footer />
+  </>
   )
 }
 

@@ -1,10 +1,14 @@
 import React from 'react'
-import styles from '../../../styles/Setting.module.scss';
+import styles from '../../styles/Boards.module.scss';
 import BackButton from '@/app/components/BackButton';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
 
 const page = () => {
   return (
-    <main
+    <>
+      <Header type=''/>
+      <main
       className={styles.mypageMain}
     >
       {/* head area */}
@@ -16,7 +20,7 @@ const page = () => {
 
 
       {/* event notice area */}
-      <section
+      <article
         className={styles.eventNoticeWrap}
       >
       <div className={styles.eventHead}>
@@ -59,11 +63,13 @@ const page = () => {
         </ul>
 
         {/* pagenaition 필요 */}
-      </section>
+      </article>
 
       <BackButton />
 
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }
 
