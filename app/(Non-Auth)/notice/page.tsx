@@ -1,34 +1,47 @@
 import React from 'react';
-import styles from '../../../styles/Setting.module.scss';
+import styles from '../../styles/Boards.module.scss';
 import Link from 'next/link';
-
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
+import { createClient } from '@/supabase/clientt';
 
 interface noticeContentsProps {
   id:number,
   title : string,
-  description : string
+  created_at: Date
+  index : number,
+  data : supabaseData
 }
 
-
+interface supabaseData {
+  id :number,
+  created_at : Date,
+  title : string,
+  description : string
+}
 
 const NoticeList = ({
   id,
   title,
-  description
+  created_at,
+  index,
+  
 } : noticeContentsProps) => {
+  const refinedDate = new Date(created_at).toLocaleDateString('en-CA');
+  
   return (
     <>
     {
       <li
         className={styles.noticeEachWrap}
       >
-        <p className={styles.noticeEachId}>{id}</p>
         <Link 
           href={`notice/${id}`}
           className={styles.noticeEachTitle}
         >
           {title}
         </Link>
+        <p className={styles.noticeEachId}>{ refinedDate }</p>
       </li>
     }
     </>
@@ -36,72 +49,69 @@ const NoticeList = ({
 }
 
 
-const page = () => {
+export const revalidate = 0;
 
-  const noticeContents : noticeContentsProps[]=[
-    {
-      id : 1,
-      title : "2024.03 홈페이지 오픈",
-      description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque eos rem vel natus reprehenderit dicta culpa alias, fuga iusto illo ut dolorem architecto maiores esse at magni, iste optio!"
-    },
-    {
-      id : 2,
-      title : "좀쉼쉼 홈페이지 오픈 이벤트를 진행하오니 많은 참여 하겠습니다.",
-      description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque eos rem vel natus reprehenderit dicta culpa alias, fuga iusto illo ut dolorem architecto maiores esse at magni, iste optio!"
-    },
-    {
-      id : 3,
-      title : "점검 안내, 2024년 6월 홈페이지 점검 안내",
-      description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque eos rem vel natus reprehenderit dicta culpa alias, fuga iusto illo ut dolorem architecto maiores esse at magni, iste optio!"
-    },
-    {
-      id : 4,
-      title : "숙박 선택 시 유의해야 할 사항",
-      description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque eos rem vel natus reprehenderit dicta culpa alias, fuga iusto illo ut dolorem architecto maiores esse at magni, iste optio!"
-    },
+const page = async () => {
 
-  ]
+  const supabase = createClient();
 
+const { data, error:supabaseError } = await supabase
+.from('notices')
+.select()
 
+if(supabaseError){
+  console.error("Fetching Error occured", supabaseError)
+  return
+}
 
 
   
   return (
-    <main
-      className={styles.mypageMain}
-    >
-      
-      {/* head area */}
-      <section
-        className={styles.head}
+    <>
+      <Header type='' />
+      <main
+        className={styles.mypageMain}
       >
-        <h3>공지사항</h3>
-      </section>
-
-      {/* notice body */}
-      <article
-        className={styles.mypageNotice}
-      >
-        <div
-          className={styles.noticeHeader}
+        
+        {/* head area */}
+        <section
+          className={styles.head}
         >
-          <p>번호</p>
-          <p>제목</p>
-        </div>
+          <h3>공지사항</h3>
+        </section>
 
-        <ul
-          className={styles.noticeListWrap}
+        {/* notice body */}
+        <article
+          className={styles.mypageNotice}
         >
-          {
-            noticeContents.map((item, index) =>(
-              <NoticeList {...item} key={item.id} />
-            ))
-          }
+          <div
+            className={styles.noticeHeader}
+          >
+            <p>제목</p>
+            <p>날짜</p>
+          </div>
 
-        </ul>
+          <ul
+            className={styles.noticeListWrap}
+          >
+            {
+              data ? (
+                data.map((item, index) =>(
+                  <NoticeList {...item} index={index} key={item.id} data={data} />
+                ))
 
-      </article>
-    </main>
+              ) : (
+                <p>{supabaseError} </p>
+              )
+
+            }
+
+          </ul>
+
+        </article>
+      </main>
+      <Footer />
+    </>
   )
 }
 
