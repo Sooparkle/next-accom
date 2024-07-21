@@ -180,12 +180,12 @@ $tertiary-color : #d3eac8;
     border-bottom: 2px solid #ccc;
     p{
       &:nth-of-type(2){
-        width: 60px;
+        flex: 1;
         text-align: center;
       }
 
       &:nth-of-type(1){
-        flex:4;
+        flex:6;
         text-align: center;
       }
     }
@@ -199,7 +199,6 @@ $tertiary-color : #d3eac8;
       justify-content: space-between;
       gap: 1rem;
       align-items: center;
-      min-width: 300px;
       width: 100%;
       &:not(:nth-last-of-type(1)){
         border-bottom: 1px solid #ccc;
@@ -217,16 +216,39 @@ $tertiary-color : #d3eac8;
       text-align: center;
     }
     .noticeEachTitle{
-      font-size: 18px;
+      font-size: 16px;
       padding: 1rem 0;
       padding-left: 10px;
       letter-spacing: -.5px;
       overflow: hidden;
-      white-space: nowrap;
+      // white-space: nowrap;
       text-overflow: ellipsis;
       word-break: break-all;
     }
-    
+  }
+
+  // pagenation
+  .pagination{
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1rem 0;
+
+    a{
+      display: inline-block;
+      padding: .6rem .8rem;
+      border: 1px solid #ccc;
+      border-radius: .2rem;
+
+      &:hover{
+        background-color: $primary-color;
+      }
+    }
+
+    .activePageLink{
+      background-color: $primary-color;
+    }
+
   }
 }
 
