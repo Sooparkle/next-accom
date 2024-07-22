@@ -78,7 +78,7 @@ const page = () => {
           </li>
         </ul>
       </section>
-      <BackButton />
+      <BackButton href='/mypage'/>
     </main>
     
     

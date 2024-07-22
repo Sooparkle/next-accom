@@ -142,7 +142,7 @@ export const page = () => {
           </ul>
         </article>
       }
-      <BackButton />
+      <BackButton href='/mypage' />
     </main>
   )
 }

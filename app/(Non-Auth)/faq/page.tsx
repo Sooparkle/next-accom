@@ -100,7 +100,7 @@ let dataShowed= filtered?.length ? filtered : faq
         </div>
 
       </article>
-      <BackButton />
+      <BackButton href='/mypage' />
     </main>
   <Footer />
   </>

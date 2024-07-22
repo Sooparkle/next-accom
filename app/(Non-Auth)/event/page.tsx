@@ -65,7 +65,7 @@ const page = () => {
         {/* pagenaition 필요 */}
       </article>
 
-      <BackButton />
+      <BackButton href='/mypage' />
 
       </main>
       <Footer />

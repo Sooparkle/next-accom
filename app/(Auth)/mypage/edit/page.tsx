@@ -26,7 +26,7 @@ const page = () => {
         {/* edit body */}
         <EditPart />
 
-        <BackButton />
+        <BackButton href='/mypage'/>
       </main>
       <Footer />
     </>

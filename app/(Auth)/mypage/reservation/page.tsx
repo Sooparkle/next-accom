@@ -122,7 +122,7 @@ export const page = () => {
       </section>
 
 
-      <BackButton />
+      <BackButton href='/mypage'/>
     </main>
   )
 }

@@ -12,6 +12,7 @@ interface noticeContentsProps {
   id: number;
   title: string;
   created_at: string;
+  numbers : number;
   index: number;
 }
 
@@ -44,12 +45,12 @@ const NoticeList = ({ data, totalPages }: dataType) => {
     <>
       <ul className={styles.noticeListWrap}>
         {data.map((item, index) => {
-          const { id, title, created_at } = item;
+          const { id, title, created_at, numbers } = item;
           const formatDate = new Date(created_at).toLocaleDateString("en-CA");
 
           return (
             <li className={styles.noticeEachWrap} key={index}>
-              <Link href={`notice/${id}`} className={styles.noticeEachTitle}>
+              <Link href={`notice/${numbers}`} className={styles.noticeEachTitle}>
                 {title}
               </Link>
               <p className={styles.noticeEachId}>{formatDate}</p>

@@ -19,7 +19,7 @@ const page = () => {
       {/* body area */}
       <NotificationThings />
 
-      <BackButton />
+      <BackButton href='/mypage' />
     </main>
   )
 }
