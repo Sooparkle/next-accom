@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "../styles/Boards.module.scss";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { BiLeftArrow,BiRightArrow } from "react-icons/bi";
+import { generatePagination } from "../util/paginationArray";
+
 
 interface noticeContentsProps {
   id: number;
@@ -20,16 +23,22 @@ interface dataType {
 const NoticeList = ({ data, totalPages }: dataType) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const page = parseInt(searchParams.get("page") || "1", 10);
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
-  const [currentPage, setCurrentPage] = useState(page);
 
-  console.log("dd",searchParams);
-  console.log("dd",pathname);
-  const maxVisiblePages = 5;
+  // const maxVisiblePages = Math.min(5, totalPages);
+  // const startPage = Math.max(1, currentPage - Math.floor((visiblePageCount - 1) / 2));
+  // const endPage = Math.min(totalPages, startPage + visiblePageCount - 1);
+  // console.log(startPage)
+  // console.log(endPage)
 
-  const startPage = Math.max(1, page - Math.floor(maxVisiblePages / 2));
-  const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  const createPageURL = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', pageNumber.toString());
+    return `${pathname}?${params.toString()}`;
+  };
+
+  const allPages = generatePagination(currentPage, totalPages);
 
   return (
     <>
@@ -49,39 +58,114 @@ const NoticeList = ({ data, totalPages }: dataType) => {
         })}
       </ul>
 
+
+      {/* pagination area */}
       <div className={styles.pagination}>
-        <button
-          className={styles.pageLink}
-          disabled={page <= 1}
-          onClick={() =>
-            (window.location.href = `${pathname}?page=${page - 1}`)
-          }
-        >
-          Prev
-        </button>
-        {Array.from({ length: endPage - startPage + 1 }, (_, i) => i + 1).map(
-          (pageNum) => (
-            <Link
-              key={pageNum}
-              href={`${pathname}?page=${pageNum}`}
-              className={`${styles.pageLink}  ${pageNum === page ? styles.activePageLink : ""} `}
-            >
-              {pageNum}
-            </Link>
-          )
-        )}
-        <button
-          className={styles.pageLink}
-          disabled={page >= totalPages}
-          onClick={() =>
-            (window.location.href = `${pathname}?page=${page + 1}`)
-          }
-        >
-          Next
-        </button>
+
+        <PaginationArrow
+          direction="left"
+          href={createPageURL(currentPage - 1)}
+          isDisabled={currentPage <= 1}
+        />
+
+        {allPages.map((page, index) => {
+          let position: 'first' | 'last' | 'single' | 'middle' | undefined;
+
+          if (index === 0) position = 'first';
+          if (index === allPages.length - 1) position = 'last';
+          if (allPages.length === 1) position = 'single';
+          if (page === '...') position = 'middle';
+
+          return (
+            <PaginationNumber
+              key={`${page}-${index}`}
+              href={createPageURL(page)}
+              page={page}
+              position={position}
+              isActive={currentPage === page}
+            />
+          );
+        })}
+
+        <PaginationArrow
+          direction="right"
+          href={createPageURL(currentPage + 1)}
+          isDisabled={currentPage >= totalPages}
+        />
+
       </div>
     </>
   );
 };
 
 export default NoticeList;
+
+const PaginationNumber = ({
+  page,
+  href,
+  isActive,
+  position,
+}:{
+  page : number | string;
+  href : string;
+  position? : 'first' | 'last' | 'middle' | 'single';
+  isActive: boolean;
+
+}) => {
+  const { 
+    paginationNumberBar, 
+    'rounded-l-md': roundedLeftMD, 
+    'rounded-r-md': roundedRightMD, 
+    active, 
+    'text-gray-300': textGray300 
+  } = styles;
+
+
+  const className = `
+  ${paginationNumberBar} 
+    ${position === 'first' || position === 'single' ? ` ${roundedLeftMD}` : ''}
+    ${position === 'last' || position === 'single' ? ` ${roundedRightMD}` : ''}
+    ${isActive ? ` ${active}` : ''}
+    ${position === 'middle' ? ` ${textGray300}` : ''}`;
+  return isActive || position === 'middle' ? (
+    <div
+      className={className}
+    >{page}</div>
+  ) : (
+    <Link className={className}  href={href} >{page}</Link>
+  );
+}
+
+
+const PaginationArrow = ({
+  href,
+  direction,
+  isDisabled,
+}:{
+  href : string;
+  direction : 'left' | 'right';
+  isDisabled : boolean;
+
+}) =>{
+  const icon =
+  direction === 'left' ? (
+    <BiLeftArrow />
+  ) : (
+    <BiRightArrow />
+  );
+
+  const className =`${styles.arrowDirection}`
+
+  return isDisabled ? (
+    <div
+      className={className}
+    >{icon}</div>
+  ) : (
+    <Link
+      className={className}
+      href={href}
+    >
+      {icon}
+    </Link>
+  )
+}

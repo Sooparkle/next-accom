@@ -18,7 +18,7 @@ interface NoticeListProps {
   data :supabaseData[]
 }
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 5;
 
 
 export const revalidate = 6000;
@@ -28,7 +28,6 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1 ;
   const offset = (page - 1) * ITEMS_PER_PAGE;
-  console.log("searchParams", searchParams)
 
 
   //Supabase fetch for only a certain table count
@@ -36,14 +35,14 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
   .from('notices')
   .select('*', { count: 'exact', head: true})
 
-console.log("a certain", count)
 
   //Supabase fetch based on range setting
   const { data, error:supabaseError } = await supabase
   .from('notices')
   .select()
   .order('created_at', { ascending: false })
-  .range(offset, offset + ITEMS_PER_PAGE - 1); //Limit the query result by starting at an offset (from) and ending at the offset (from + to).
+  .range(offset, offset + ITEMS_PER_PAGE - 1); 
+  //Limit the query result by starting at an offset (from) and ending at the offset (from + to).
 
   if(supabaseError){
     console.error("Fetching Error occured", supabaseError)
@@ -52,8 +51,7 @@ console.log("a certain", count)
 
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
-  console.log("totalPages",totalPages)
-  console.log("--------------------")
+
   // console.log(data)
   return (
     <>
