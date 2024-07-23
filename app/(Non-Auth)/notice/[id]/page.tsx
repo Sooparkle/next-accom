@@ -4,6 +4,8 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { createClient } from '@/supabase/clientt';
 import BackButton from '@/app/components/BackButton';
+import { formatDescription } from '@/app/util/format';
+
 
 interface dataType {
   id: number;
@@ -37,17 +39,6 @@ const page = async ({
   const notice = data[0] as dataType;
 
 
-    
-  const formatDescription = (description: string) => {
-    return description.split('\n').map((line, index) => (
-      <span key={index}>
-        {line}
-        <br />
-      </span>
-    ));
-  };
-
-
 
   return (
     <>
@@ -59,7 +50,9 @@ const page = async ({
         <section
           className={styles.head}
         >
-          <h3>공지사항 </h3>
+          <h3
+            className={styles.noticeDetailH3}
+          >공지사항 </h3>
           <h4>{notice?.title }</h4>
         </section>
 
@@ -69,7 +62,6 @@ const page = async ({
           {
             data ?(
               <>
-                
                 <div>{formatDescription(notice?.description)}</div>
               </>
             ) : (

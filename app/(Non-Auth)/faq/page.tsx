@@ -6,6 +6,7 @@ import faq from '../../data/faq';
 import BackButton from '@/app/components/BackButton';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import { formatDescription } from '@/app/util/format';
 
 type contentsType = {
   id : number,
@@ -35,16 +36,6 @@ const handleFilter = (i:string) =>{
 }
 
 let dataShowed= filtered?.length ? filtered : faq
-
-  // replace \n tag with <br /> function
-  const formatDescription = (description: string) => {
-    return description.split('\n').map((line, index) => (
-      <span key={index}>
-        {line}
-        <br />
-      </span>
-    ));
-  };
 
   return (
     <>
