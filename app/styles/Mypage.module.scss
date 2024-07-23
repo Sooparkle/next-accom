@@ -199,12 +199,13 @@ $tertiary-color : #d3eac8;
       margin-top: 10px;
 
       li{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.2rem 1rem;
-        cursor: pointer;
-
+        a{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.2rem 1rem;
+          cursor: pointer;
+        }
         &:not(:nth-last-child(1)) { 
           border-bottom: 1px solid #cecece;
         }
