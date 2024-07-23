@@ -36,6 +36,16 @@ const handleFilter = (i:string) =>{
 
 let dataShowed= filtered?.length ? filtered : faq
 
+  // replace \n tag with <br /> function
+  const formatDescription = (description: string) => {
+    return description.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   return (
     <>
     <Header type=''/>
@@ -93,7 +103,7 @@ let dataShowed= filtered?.length ? filtered : faq
                 <summary>{item.title}</summary>
                 <div 
                   className={styles.contents}
-                >{item.contents}</div>
+                >{formatDescription(item.contents)}</div>
               </details>
             ))
           }
