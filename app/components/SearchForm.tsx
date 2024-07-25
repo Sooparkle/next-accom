@@ -32,19 +32,29 @@ interface AccomsDataType {
 
 }
 
+
+interface SearchState {
+  message: string;
+  data?: AccomsDataType[];
+}
+
 interface SearchStoreType {
-  searchResults: AccomsDataType[];
-  setSearchResults: (data: AccomsDataType[]) => void;
+  searchResults:SearchState
+  setSearchResults: (state:SearchState) => void;
 
 }
 
-export const useSearchStore = create<SearchStoreType>((set) =>({
-  searchResults: [],
-  setSearchResults: (data: AccomsDataType[]) => set({ searchResults: data }),
-}))
 
-const initialState = {
-  message : "",
+
+// Zustand 
+export const useSearchStore = create<SearchStoreType>((set) => ({
+  searchResults: { message: "initial", data: [] },
+  setSearchResults: (state: SearchState) => set({ searchResults: state }),
+}));
+
+const initialState : SearchState = {
+  message : "initial",
+  data : []
 }
 
 
@@ -67,12 +77,13 @@ export const SearchForm = () => {
   const searchStore = useSearchStore();
 
   useEffect(()=>{
-    if (Array.isArray(state)) {
-      const accommodations: AccomsDataType[] = state;
-      searchStore.setSearchResults(accommodations);   
+    console.log("state", state)
+
+    if (state) {
+      searchStore.setSearchResults(state);   
     } else {
-      console.log("SearchForm State Message", state.message);
-      window.alert(`${state.message}`);
+      console.log("SearchForm State Message", state);
+
     }
 
 
