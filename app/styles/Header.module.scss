@@ -194,7 +194,6 @@ $mobile-breakpoint: 768px;
       place-items: center;
       place-content: center;
       gap: 1rem;
-
     }
 
     ul{
@@ -219,7 +218,91 @@ $mobile-breakpoint: 768px;
 
 }
 
-@media screen and (min-width:$mobile-breakpoint) {
+// @media screen and (min-width:$mobile-breakpoint) {
+// .header{
+
+//   .nav{
+//     display: block;
+//     border-bottom: 1px solid #eee;
+//     > ul{
+//       height: 68px;
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       margin-inline: auto;
+//       padding: 0 2rem;
+//       box-sizing: border-box;
+//       max-width: 1000px;
+
+//       li{
+//         position: relative;
+//       }
+
+//       .active::after{ 
+//         content: " ";
+//         position: absolute;
+//         background-color: #82bd69;
+//         width: 34px;
+//         height: 2px;
+//         margin-top: 2px;
+
+        
+//       }
+//     }
+
+//     .main,
+//     .profile
+//     {
+//       display: block;
+//     }
+//   }
+
+//   .mobileMenu{
+//     display: none;
+//   }
+
+//   svg{
+//     width:34px;
+//     height: 34px;
+//     color: #000;
+
+//     &:hover{
+//       color: $primary-color;
+//     }
+//   }
+  
+
+//   // 검색 영역
+//   .searchFormWrap{
+//     justify-content: center;
+
+//     form{
+//       width: 400px;
+//       box-shadow: 0 0 8px rgba(0,0, 0, .05);
+
+//     }
+
+//     .inputBtn{
+
+//       input{
+//         width:300px;
+//       }
+//     }
+
+//     .mobileMenu{
+//       display: none;
+//     }
+//   }
+
+//   // 검색 영역 외
+//   .NotSearchFormWrap{
+//     display: none;
+//   }
+// }
+
+
+
+// }
 .header{
 
   .nav{
@@ -237,6 +320,11 @@ $mobile-breakpoint: 768px;
 
       li{
         position: relative;
+
+        .logoBtn{
+          all: unset;
+          position: relative;
+        }
       }
 
       .active::after{ 
@@ -302,6 +390,4 @@ $mobile-breakpoint: 768px;
 }
 
 
-
-}
 

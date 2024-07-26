@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import  { IoPersonOutline } from "react-icons/io5";
 import { CiMountain1, CiMenuBurger,CiCircleList } from "react-icons/ci";
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const MyinfoList = () =>{
 
@@ -52,6 +53,10 @@ const MyinfoList = () =>{
           <Link href='/faq'>FAQ</Link>
         </li>
       </ul>
+
+      <div>
+        
+      </div>
     </section >
   )
 }
@@ -61,22 +66,30 @@ const NavList = () => {
 
   const pathname = usePathname();
   const isMypageIncluded = pathname.includes('/mypage');
+  const router =useRouter();
+
+  console.log("pathname", pathname)
+  const handleLogo =() =>{
+    if(pathname === "/")
+    window.location.reload();
+
+    router.push('/');
+  }
   
   return (
     <nav
     className={styles.nav}
   >
     <ul >
-      <li
-        className={`${pathname === "/" ? styles.active : ""}`}
-      >
-        <Link
-        href="/"
-        
-      >
-        <CiMountain1
+      <li>
+
+        <button
+          onClick={handleLogo}
+          className={`${pathname === "/" ? styles.active : ""} ${styles.logoBtn}`}
+        >
+                  <CiMountain1
         className={styles.main}/>
-      </Link>
+        </button>
       </li>
 
       <li
