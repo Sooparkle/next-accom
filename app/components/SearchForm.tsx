@@ -1,56 +1,17 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Header.module.scss';
 import { CiSearch, CiMenuBurger } from "react-icons/ci";
 import { useFormState, useFormStatus } from 'react-dom';
 import searchFn from '../util/searchFn';
-import { create } from 'zustand';
-
-interface AccomsDataType {
-  id: number;
-  accom_name: string;
-  accom_type: string;
-  accom_info: string;
-  accom_benefit: string;
-  description: string;
-  img_url: string;
-  price: string;
-  score: number;
-  min_occupancy: number;
-  max_occupancy: number;
-  extra_adult: number;
-  extra_child: number;
-  city: string;
-  cityGu: string;
-  province: string;
-  phone: string;
-  cancel: string;
-  availavility: null | boolean;
-  event: boolean;
-  created_at: string;
-  updated_at: string; 
-
-}
-
+import { AccomDataType } from '../util/types';
+import { useSearchStore } from '../util/useSearchStore';
 
 interface SearchState {
   message: string;
-  data?: AccomsDataType[];
+  data?: AccomDataType[];
 }
 
-interface SearchStoreType {
-  searchResults:SearchState
-  setSearchResults: (state:SearchState) => void;
-
-}
-
-
-
-// Zustand 
-export const useSearchStore = create<SearchStoreType>((set) => ({
-  searchResults: { message: "initial", data: [] },
-  setSearchResults: (state: SearchState) => set({ searchResults: state }),
-}));
 
 const initialState : SearchState = {
   message : "initial",
@@ -58,15 +19,18 @@ const initialState : SearchState = {
 }
 
 
-  const SubmitBtn = () =>{
+  const SubmitBtn = ({ input } : {input : string}) =>{
   const { pending } = useFormStatus();
+
+console.log("dd", input)
 
   return (
     <button 
       type="submit"
-      aria-disabled={pending}
+      aria-disabled={input.length === 0 || pending}
+      disabled={input.length === 0 || pending}
     >
-      { pending ? "로그인 진행중" : " 로그인"}
+      <CiSearch />
     </button>
   )
 }
@@ -75,6 +39,8 @@ const initialState : SearchState = {
 export const SearchForm = () => {
   const [state, formAction] = useFormState(searchFn, initialState);
   const searchStore = useSearchStore();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [ input, setInput ] = useState("")
 
   useEffect(()=>{
     console.log("state", state)
@@ -83,12 +49,9 @@ export const SearchForm = () => {
       searchStore.setSearchResults(state);   
     } else {
       console.log("SearchForm State Message", state);
-
     }
-
-
-
   },[state])
+
   
   return (
     <section className={styles.searchFormWrap}>
@@ -102,20 +65,20 @@ export const SearchForm = () => {
           <input
             name='keyword'
             type='text'
+            onChange={(e)=>setInput(e.target.value)}
           />
-          <button>
-            <CiSearch />
-          </button>
+          <SubmitBtn input={input}/>
 
         </div>
       </form>
 
-      <button
+
+      {/* <button
         className={styles.mobileMenu}
       >
         <CiMenuBurger
           />
-      </button>
+      </button> */}
 
     </section>
   )
