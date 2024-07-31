@@ -1,0 +1,278 @@
+$primary-color: #82bd69;
+$secondary-color: #3d692c;
+$tertiary-color: #d3eac8;
+
+.accomsDetailMain {
+  max-width: 1100px;
+  margin-inline: auto;
+  margin-top: 68px;
+  display: grid;
+  gap: 2rem;
+  padding: 0 1rem;
+  overflow: visible;
+
+  article {
+    border-radius: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+    padding: .8rem 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .accomDetailImagWrap {
+    width: 100%;
+    height: 480px;
+    position: relative;
+    margin-bottom: 20px;
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .accomBody {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    position: relative;
+
+    // right side area
+    .accomBodyHeaderWrap{
+      h3{
+        margin-bottom: 15px;
+      }
+      section{
+        margin-top: 3rem;
+      }
+      .accomInfoListDot{
+        position: relative;
+        padding-left: 15px;
+        margin: 5px 0;
+        color: #222222;
+        &::before{
+          content: "-";
+          position: absolute;
+          left: 0;
+        }
+      }
+
+      ul{
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        li{
+          display: flex;
+          gap: 1rem;
+          color: gray
+        }
+        
+        & > li:nth-last-of-type(1){
+          font-size: 14px;
+          margin-top: 10px;
+        }
+
+      }
+    }
+
+
+
+    // right box
+    aside{
+      position: relative;
+    }
+
+    .accommodationRightBodyWrap {
+      position: relative; // Ensure this position is relative for the sticky effect
+      transition: top 0.3s;
+
+      &.sticky {
+        position: fixed;
+        top: 100px; // Adjust this value to your desired offset from the top
+      }
+
+      .accomAsideDateNumberBox{
+        display: grid;
+        // grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+
+
+
+        & > div
+        {
+          font-size: 14px;
+          font-weight: 600;
+          width: 100%;
+          // border: 1px solid #ccc;
+          // border-radius: 4px;
+          padding: 6px 1rem;
+          color: #6a6a6a;
+          border-bottom: 1px solid #ccc;
+
+          & >div:nth-of-type(1){
+            margin-bottom: 10px;
+          }
+
+          p{
+            padding-bottom: 4px;
+            color: #222222;
+          }
+        }
+
+
+
+        & >button{
+          all: unset;
+          width: 100%;
+          height: 48px;
+          text-align: center;
+          background-color: $primary-color;
+        }
+
+        .accomAsideNumbersWrap{
+          padding: .8rem 1rem ;
+          & > svg{
+            vertical-align: sub;
+            margin-right: 10px;
+          }
+
+        }
+
+
+
+        // popup area
+        .popupCalendarWrap{
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 1rem 1.5rem;
+          background-color: #fff;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+          border-radius: 1rem;
+          &>p{
+            margin: 10px 0 20px 0;
+          }
+          
+          button:focus-visible{
+            outline: 2px solid red;
+
+          }
+
+          .calendarConfirmBtn{
+            all:unset;
+            margin-top: 10px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            background-color: $primary-color;
+            border-radius: .4rem;
+          }
+
+
+          // Calendar Wrap
+          .CalendarWrap{
+
+            & > div{
+              border: none;
+              .sunday{
+                color: #82bd69;
+                
+            }
+            
+            
+
+            }
+
+
+
+          }
+        }
+
+        // How many ppl staying Popup
+        .accomAsideNumbers{
+          position: absolute;
+          top: 145px;
+          right: 0;
+          padding: 1rem 1.5rem;
+          background-color: #fff;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+          border-radius: 1rem;
+          width: 320px;
+
+          
+          p{
+            color: #222222;
+            margin-top: 10px;
+            text-align: right;
+            font-size: 14px;
+          }
+
+          ul {
+            margin-top: 15px;
+
+            li{
+              display: flex;
+              justify-content: space-between;
+
+              .accomAsideNumberSetBtns{
+                display: flex;
+                gap: 1rem;
+                align-items: stretch;
+                justify-content: space-between;
+                width: 104px;;
+                button{
+                  all: unset;
+                  background-color: #fff;
+
+                  svg{
+                    font-size: 30px;
+                    color: #222222;
+                  }
+
+                  &:disabled{
+                    cursor: not-allowed;
+                    & >svg{
+                      color: #ccc;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .accomTotalNumberCounter{
+            width: 100%;
+            text-align: right;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            font-size: 1.2rem;
+          }
+        }
+
+          &  > *:focus-within{
+            outline: 1px solid red;
+          }
+
+          &:focus-visible{
+            outline: 2px solid red;
+          }
+      }
+
+
+      .accommodationPriceWrap {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .accommodationTotalPriceWrap {
+        text-align: right;
+        font-size: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #ccc;
+      }
+    }
+  }
+}
