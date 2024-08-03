@@ -8,10 +8,14 @@ import  { IoPersonOutline } from "react-icons/io5";
 import { CiMountain1, CiMenuBurger,CiCircleList } from "react-icons/ci";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { UserType } from '../util/types';
 
-const MyinfoList = () =>{
 
-  const loginInfo = false
+
+
+const MyinfoList = ({user} : {user : UserType}) =>{
+
+
   return(
     <section
       className={styles.headerPopupWrap}
@@ -20,7 +24,7 @@ const MyinfoList = () =>{
         className={styles.popupImage}
       >
         {
-          loginInfo ? (
+          user ? (
             <Link href='/maypge' >
               <Image 
               src='https://images.unsplash.com/photo-1599687351724-dfa3c4ff81b1?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -37,7 +41,7 @@ const MyinfoList = () =>{
         }
         <p>
           {
-            loginInfo ? "홍길동님" :"로그인 필요"
+            user ? "홍길동님" :"로그인 필요"
           }
         </p>
       </div>
@@ -61,14 +65,15 @@ const MyinfoList = () =>{
   )
 }
 
-const NavList = () => {
-  const [ mypageClicked, setMypagClicked ] = useState<boolean>(false)
+const NavList = ({user} :{user : UserType |null}) => {
+  const [ mypageClicked, setMypagClicked ] = useState<boolean>(false);
 
   const pathname = usePathname();
   const isMypageIncluded = pathname.includes('/mypage');
   const router =useRouter();
 
-  console.log("pathname", pathname)
+
+  //Logo button function logic
   const handleLogo =() =>{
     if(pathname === "/")
     window.location.reload();
@@ -87,7 +92,7 @@ const NavList = () => {
           onClick={handleLogo}
           className={`${pathname === "/" ? styles.active : ""} ${styles.logoBtn}`}
         >
-                  <CiMountain1
+        <CiMountain1
         className={styles.main}/>
         </button>
       </li>
@@ -98,7 +103,7 @@ const NavList = () => {
       >
         <CiCircleList 
         className={styles.profile}
-        />{mypageClicked && <MyinfoList />}
+        />{mypageClicked && user ? <MyinfoList user={user as UserType} /> : null}
       </li>
 
     </ul>

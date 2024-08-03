@@ -3,6 +3,8 @@ import React from 'react'
 import { useFormState, useFormStatus } from "react-dom";
 import searchFn from "../util/searchFn";
 import styles from "../styles/Form.module.scss";
+import { emailLogin } from '../login/actions';
+import { useSearchParams } from 'next/navigation';
 
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
     <button 
       type="submit"
       aria-disabled={pending}
+      formAction={emailLogin}
     >
       { pending ? "로그인 진행중" : " 로그인"}
     </button>
@@ -24,8 +27,9 @@ const initialState = {
 }
 
 const Form = () => {
-  const [state, formAction ] = useFormState(searchFn, initialState)
+  const searchParams = useSearchParams()
   const isLogin = true
+  console.log("searchParams", searchParams);
   
   return (
     <section
@@ -35,7 +39,7 @@ const Form = () => {
       <h1>로그인 페이지</h1>
       <form
         className={styles.form} 
-        action={formAction}>
+        >
 
           <div
             className={styles.emailWrap}
@@ -49,7 +53,7 @@ const Form = () => {
             <label htmlFor="password">비밀번호</label>
             <input type="password" name="password" id="password" autoComplete="off" />
           </div>
-
+          {/* <p>{searchParams && searchParams}</p> */}
         <SubmitBtn />
       </form>
 
