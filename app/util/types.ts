@@ -67,3 +67,13 @@ interface Identity {
   updated_at: string;
   email: string;
 }
+
+export interface UserDBType {
+  email : string;
+  id : number;
+  created_at : Date;
+  name : string;
+  password? : string;
+  image : string | null;
+  coupon : [] | null;
+}

@@ -4,7 +4,8 @@ import SearchForm from './SearchForm';
 import NotSearchForm from './NotSearchForm';
 import NavList from './NavList';
 import { createClient } from '@/utils/supabase/server';
-import { UserType } from '../util/types';
+import { UserType,UserDBType } from '../util/types';
+import { createClient as DB } from '@/supabase/clientt';
 
 interface HeaderProps{
   type:string
@@ -13,16 +14,33 @@ interface HeaderProps{
 
 export const Header = async ({type}:HeaderProps)  => {
   const supabase = createClient();
+  const DB = createClient();
 
   const {data : {user} } = await supabase.auth.getUser();
 
-  console.log("login User", user)
 
+  let userDB : UserDBType | null = null;
+
+  if(user && userDB == null){
+    const { data, error } = await DB
+    .from('users')
+    .select()
+    .eq('email', user?.email)
+
+    if(error){
+      console.log("사용자를 불러 올 수 없습니다.");
+    }
+
+    if(data && data.length > 0 ){
+      userDB = data[0]
+    }
+    
+  }
   return (
     <header
       className={styles.header}
     >
-      {user? <NavList user={user as UserType} /> : null}
+      {user? <NavList user={userDB} /> : null}
       {
         // type === "mypage" && <NotSearchForm />
       }

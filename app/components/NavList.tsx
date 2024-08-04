@@ -8,12 +8,13 @@ import  { IoPersonOutline } from "react-icons/io5";
 import { CiMountain1, CiMenuBurger,CiCircleList } from "react-icons/ci";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { UserType } from '../util/types';
+import { UserDBType } from '../util/types';
+import { singOut } from '../login/actions';
 
 
 
 
-const MyinfoList = ({user} : {user : UserType}) =>{
+const MyinfoList =  ({user} : {user : UserDBType}) =>{
 
 
   return(
@@ -25,13 +26,17 @@ const MyinfoList = ({user} : {user : UserType}) =>{
       >
         {
           user ? (
-            <Link href='/maypge' >
-              <Image 
-              src='https://images.unsplash.com/photo-1599687351724-dfa3c4ff81b1?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-              fill
-              alt='본인 아바타'
+            <Link href='/mypage' >
+              <div
+                className={styles.popupImageWrap}
+              >
+                <Image 
+                src={user?.image || `https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg`}
+                fill
+                alt='본인 아바타'
+                />
               
-              />
+              </div>
             </Link>
           ) : (
             <Link href='/login'>
@@ -58,14 +63,20 @@ const MyinfoList = ({user} : {user : UserType}) =>{
         </li>
       </ul>
 
-      <div>
-        
+      <div
+        className={styles.popupLogOutWrap}
+      >
+        <form
+          action={singOut}
+        >
+          LogOut
+        </form>
       </div>
     </section >
   )
 }
 
-const NavList = ({user} :{user : UserType |null}) => {
+const NavList = ({user} :{user : UserDBType |null}) => {
   const [ mypageClicked, setMypagClicked ] = useState<boolean>(false);
 
   const pathname = usePathname();
@@ -103,7 +114,7 @@ const NavList = ({user} :{user : UserType |null}) => {
       >
         <CiCircleList 
         className={styles.profile}
-        />{mypageClicked && user ? <MyinfoList user={user as UserType} /> : null}
+        />{mypageClicked && user ? <MyinfoList user={user as UserDBType} /> : null}
       </li>
 
     </ul>
