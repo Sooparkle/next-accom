@@ -3,19 +3,23 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Header.module.scss';
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import  { IoPersonOutline } from "react-icons/io5";
 import { CiMountain1, CiMenuBurger,CiCircleList } from "react-icons/ci";
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { UserDBType } from '../util/types';
 import { singOut } from '../login/actions';
 
 
 
-
 const MyinfoList =  ({user} : {user : UserDBType}) =>{
 
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await singOut();
+    router.push('/login');
+  };
 
   return(
     <section
@@ -66,11 +70,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
       <div
         className={styles.popupLogOutWrap}
       >
-        <form
-          action={singOut}
-        >
-          LogOut
-        </form>
+        <button onClick={handleSignOut}>Sign Out</button>
       </div>
     </section >
   )
@@ -114,7 +114,7 @@ const NavList = ({user} :{user : UserDBType |null}) => {
       >
         <CiCircleList 
         className={styles.profile}
-        />{mypageClicked && user ? <MyinfoList user={user as UserDBType} /> : null}
+        />{mypageClicked ? <MyinfoList user={user as UserDBType} /> : null}
       </li>
 
     </ul>

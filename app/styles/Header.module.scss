@@ -237,6 +237,10 @@ $mobile-breakpoint: 768px;
         color: #fff;
         background-color: #ccc;
       }
+
+      button{
+        all: unset;
+      }
     }
   }
 

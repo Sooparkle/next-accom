@@ -13,8 +13,8 @@ interface HeaderProps{
 
 
 export const Header = async ({type}:HeaderProps)  => {
-  const supabase = createClient();
-  const DB = createClient();
+  const supabase = await createClient();
+  const DB = await createClient();
 
   const {data : {user} } = await supabase.auth.getUser();
 
@@ -40,7 +40,7 @@ export const Header = async ({type}:HeaderProps)  => {
     <header
       className={styles.header}
     >
-      {user? <NavList user={userDB} /> : null}
+      <NavList user={userDB} />
       {
         // type === "mypage" && <NotSearchForm />
       }
