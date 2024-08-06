@@ -26,13 +26,15 @@ export interface AccomDataType {
 
 
 export interface ConfirmDataType {
-  startDate: Date | null;
-  endDate: Date | null;
-  totalNights: number | null;
-  totalNumbers?: number | null;
-  totalPrice : number;
-  adult?: number | null;
-  child?: number | null;
+  start_date: Date | null;
+  end_date: Date | null;
+  guest_numbers: number;
+  total_price: number;
+  accom_name: string;
+  accom_type: string;
+  accom_id: number;
+  extra_adult?: number;
+  extra_child?: number;
 }
 
 

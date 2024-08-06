@@ -80,6 +80,13 @@ $tertiary-color: #d3eac8;
           background-color: #fff !important;
           border: 1.5px solid #333 !important;        
         }
+
+        &::placeholder{
+          color: #acacac;
+        }
+        &:focus::placeholder{
+          color: transparent;
+        }
       }
     }
   }
@@ -92,10 +99,14 @@ $tertiary-color: #d3eac8;
     }
     & > div{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      // grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 1rem;
 
       & > p{
+        text-align: right;
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top : 1px solid #ccc;
         font-size: 32px;
         font-weight: 600;
         // border-top: 1px solid #ccc;
