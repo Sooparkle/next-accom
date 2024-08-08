@@ -1,3 +1,7 @@
+$primary-color: #82bd69;
+$secondary-color: #3d692c;
+$tertiary-color: #d3eac8;
+
 .formWrap{
   display: flex;
   flex-direction: column;
@@ -6,6 +10,16 @@
   place-items: center;
   margin-inline: auto;
 
+  .logo{
+    color: $primary-color;
+    transition: all 500ms ease-in-out;
+    font-style: italic;
+
+    &:hover{
+      font-size: 22px;
+      color: $secondary-color;
+    }
+  }
 
 .form{
   display: grid;
@@ -18,10 +32,12 @@
 
 
   label{
-    left: 16px;
     position: absolute;
-    top: 8px;
-    transition: font-size .3s ease;
+    left: 16px;
+    top: 16px;
+    transition: all .3s ease;
+    font-size: 16px;
+    color: #909090;
   }
 
   input[type=email],
@@ -33,7 +49,7 @@
   
   input[type=email]:focus-visible,
   input[type=password]:focus-visible{
-    outline: 1px solid red;
+    outline: none
   }
 
   
@@ -44,25 +60,42 @@
     padding: 1.8rem 1rem 6px;
     position: relative;
     transition: border-color .6s;
+    background: #fff;
   }
 
   .emailWrap:focus-within,
   .passwordWrap:focus-within{
-    border-color:#82bd69;
     font-size: 12px;
-
+    border: 2px solid $primary-color;
   
   }
 
   .emailWrap:focus-within input:focus + label,
-  .passwordlWrap:focus-within input:focus + label{
-    top:-10px;
-    left : -10px;
+  .passwordWrap:focus-within input:focus + label{
+    top:4px;
+    left : 2px;
+    font-size: 14px;
+    color: #ccc;
   }
 
   button[type=submit]{
+    all: unset;
+    width: 100%;
     height: 40px;
+    background: $secondary-color;
+    border-radius: 6px;
+    text-align: center;
+    color:#fff
   }
 }
 
+}
+
+.policies{
+  font-size: 14px;
+  color: #909090;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
