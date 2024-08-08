@@ -1,3 +1,4 @@
+'use server'
 import React from 'react';
 import styles from '../styles/Header.module.scss';
 import SearchForm from './SearchForm';
@@ -15,12 +16,12 @@ interface HeaderProps{
 export const Header = async ({type}:HeaderProps)  => {
   const supabase = await createClient();
   const DB = await createClient();
-
-  const {data : {user} } = await supabase.auth.getUser();
-
-
   let userDB : UserDBType | null = null;
 
+  // user call function
+  const {data : {user} } = await supabase.auth.getUser();
+
+  // synchronize user and userDB
   if(user && userDB == null){
     const { data, error } = await DB
     .from('users')
@@ -36,6 +37,8 @@ export const Header = async ({type}:HeaderProps)  => {
     }
     
   }
+
+
   return (
     <header
       className={styles.header}

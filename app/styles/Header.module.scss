@@ -16,6 +16,7 @@ $mobile-breakpoint: 768px;
 
   .nav{
     display: none;
+    position: relative;
 
     .headerMypageIcon{
       position: relative;
@@ -32,6 +33,7 @@ $mobile-breakpoint: 768px;
       height: 68px;
       display: flex;
       justify-content: space-between;
+      justify-content: center;
       align-items: stretch;
       gap: 10px;
       padding : 0 1rem;
@@ -39,7 +41,7 @@ $mobile-breakpoint: 768px;
 
       
       form{
-        max-width: 400px;
+        max-width: 370px;
         min-width : 260px;
         height: 46px;
         display: flex;
@@ -49,16 +51,19 @@ $mobile-breakpoint: 768px;
         place-self: center;
         border-radius: 50px;
         background-color: #fff;
+        position: absolute;
+        transition: all 400ms ease-in-out;
+        width: 100%;
       }
   
       .inputBtn{
         display: flex;
-        gap: 10px;
+        gap: 26px;
       
         input{
           border: none;
           font-size: 16px;
-          width: 200px;
+          width: 250px;
         }
       
   
@@ -227,7 +232,7 @@ $mobile-breakpoint: 768px;
 
     .popupLogOutWrap{
       color: #ccc;
-      height: 40px;
+      height: 50px;
       display: flex;
       place-items: center;
       place-content: center;
@@ -247,91 +252,7 @@ $mobile-breakpoint: 768px;
 
 }
 
-// @media screen and (min-width:$mobile-breakpoint) {
-// .header{
 
-//   .nav{
-//     display: block;
-//     border-bottom: 1px solid #eee;
-//     > ul{
-//       height: 68px;
-//       display: flex;
-//       justify-content: space-between;
-//       align-items: center;
-//       margin-inline: auto;
-//       padding: 0 2rem;
-//       box-sizing: border-box;
-//       max-width: 1000px;
-
-//       li{
-//         position: relative;
-//       }
-
-//       .active::after{ 
-//         content: " ";
-//         position: absolute;
-//         background-color: #82bd69;
-//         width: 34px;
-//         height: 2px;
-//         margin-top: 2px;
-
-        
-//       }
-//     }
-
-//     .main,
-//     .profile
-//     {
-//       display: block;
-//     }
-//   }
-
-//   .mobileMenu{
-//     display: none;
-//   }
-
-//   svg{
-//     width:34px;
-//     height: 34px;
-//     color: #000;
-
-//     &:hover{
-//       color: $primary-color;
-//     }
-//   }
-  
-
-//   // 검색 영역
-//   .searchFormWrap{
-//     justify-content: center;
-
-//     form{
-//       width: 400px;
-//       box-shadow: 0 0 8px rgba(0,0, 0, .05);
-
-//     }
-
-//     .inputBtn{
-
-//       input{
-//         width:300px;
-//       }
-//     }
-
-//     .mobileMenu{
-//       display: none;
-//     }
-//   }
-
-//   // 검색 영역 외
-//   .NotSearchFormWrap{
-//     display: none;
-//   }
-// }
-
-
-
-// }
 .header{
 
   .nav{
@@ -390,33 +311,75 @@ $mobile-breakpoint: 768px;
   }
   
 
-  // 검색 영역
-  .searchFormWrap{
-    justify-content: center;
-
-    form{
-      width: 400px;
-      box-shadow: 0 0 8px rgba(0,0, 0, .05);
-
-    }
-
-    .inputBtn{
-
-      input{
-        width:300px;
-      }
-    }
-
-    .mobileMenu{
-      display: none;
-    }
-  }
-
   // 검색 영역 외
   .NotSearchFormWrap{
     display: none;
   }
+  
+  .title{
+    position: absolute;
+    font-style: italic;
+    color: $primary-color;
+    top: 22px;
+  }
+
+
+  //search bar side flyers
+  .flyer1,
+  .flyer2{
+    position: absolute;
+
+    svg{
+      &:hover{
+        animation: changeColors 400ms infinite;
+
+      }
+    }
+  }
+
+  .flyer1{
+    left: 10%;
+    top: 135%;
+    svg{
+      color:#909090;
+      width : 32px;
+      height: 32px;
+    }
+  }
+  .flyer2{
+    right: 10%;
+    top : 135%;
+    svg{
+      color:#909090;
+      width: 30px;
+      height: 30px;
+
+    }
+  }
+
+  @keyframes changeColors {
+    0% { fill: #ff0000; }
+    20% { fill: #00ff00; }
+    40% { fill: #0000ff; }
+    60% { fill: #ffff00; }
+    80% { fill: #ff00ff; }
+    100% { fill: #00ffff; }
+  }
 }
 
+
+@media (max-width:$mobile-breakpoint) {
+.header{
+  .searchFormWrap{
+    display: none;
+  }
+
+
+  .flyer1,
+  .flyer2{
+    display: none;
+  }
+  }
+}
 
 

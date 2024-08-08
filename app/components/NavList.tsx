@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Header.module.scss';
 import { usePathname, useRouter } from 'next/navigation'
@@ -20,6 +20,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
     await singOut();
     router.push('/login');
   };
+
 
   return(
     <section
@@ -50,7 +51,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
         }
         <p>
           {
-            user ? "홍길동님" :"로그인 필요"
+            user ? `${user?.name} 님` :"로그인 필요"
           }
         </p>
       </div>
@@ -91,6 +92,24 @@ const NavList = ({user} :{user : UserDBType |null}) => {
 
     router.push('/');
   }
+
+
+  // mypageClciked when clicked outside of popup
+  useEffect(()=>{
+    const close = () => setMypagClicked(false);
+    if(mypageClicked === true){
+      window.addEventListener('click', close)
+    }
+    return ()=>window.removeEventListener('click', close)
+
+  },[mypageClicked]);
+
+  // mypageClicked toggle button
+  const handleMypagClicked = (e:React.MouseEvent<HTMLLIElement, MouseEvent>) =>{
+    e.stopPropagation();
+    setMypagClicked(true)
+  };
+
   
   return (
     <nav
@@ -110,7 +129,7 @@ const NavList = ({user} :{user : UserDBType |null}) => {
 
       <li
         className={`${styles.headerMypageIcon} ${isMypageIncluded ? styles.active : ""}`}
-        onClick={()=>setMypagClicked(true)}
+        onClick={(e)=>handleMypagClicked(e)}
       >
         <CiCircleList 
         className={styles.profile}
