@@ -1,6 +1,6 @@
 
 import React from "react"
-type contentsType = {
+export interface contentsType {
   id : number,
   category : string,
   title : string,
