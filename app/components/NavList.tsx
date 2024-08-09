@@ -18,7 +18,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
 
   const handleSignOut = async () => {
     await singOut();
-    router.push('/login');
+    router.push('/login', {scroll:false});
   };
 
 
@@ -31,7 +31,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
       >
         {
           user ? (
-            <Link href='/mypage' >
+            <Link scroll={false} href='/mypage' >
               <div
                 className={styles.popupImageWrap}
               >
@@ -44,7 +44,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
               </div>
             </Link>
           ) : (
-            <Link href='/login'>
+            <Link scroll={false} href='/login'>
               <IoPersonOutline />
             </Link>
           )
@@ -58,13 +58,13 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
 
       <ul>
         <li>
-          <Link href='/notice'>공지사항</Link>
+          <Link scroll={false} href='/notice'>공지사항</Link>
         </li>
         <li>
-          <Link href='/event'>이벤트</Link>
+          <Link scroll={false} href='/event'>이벤트</Link>
         </li>
         <li>
-          <Link href='/faq'>FAQ</Link>
+          <Link scroll={false} href='/faq'>FAQ</Link>
         </li>
       </ul>
 
@@ -90,7 +90,7 @@ const NavList = ({user} :{user : UserDBType |null}) => {
     if(pathname === "/")
     window.location.reload();
 
-    router.push('/');
+    router.push('/',{scroll:false});
   }
 
 
