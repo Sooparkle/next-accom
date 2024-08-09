@@ -1,27 +1,20 @@
-
+'use server'
 import React from 'react';
 import styles from '../../styles/Boards.module.scss';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { createClient } from '@/supabase/clientt';
-import NoticeList from '@/app/components/NoticeList';
+import NoticeList from './NoticeList';
 
-interface supabaseData {
-  id :number,
-  created_at : Date,
-  title : string,
-  description : string,
-  numbers : number
+interface NoticeDataType {
+  id : string;
+  created_at : string;
+  title : string;
+  description : string;
+  numbers : number;
 }
 
-interface NoticeListProps {
-  data :supabaseData[]
-}
-
-const ITEMS_PER_PAGE = 5;
-
-
-export const revalidate = 6000;
+const ITEMS_PER_PAGE = 4;
 
 const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) => {
   const supabase = createClient();
@@ -29,12 +22,18 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
   const page = searchParams.page ? parseInt(searchParams.page) : 1 ;
   const offset = (page - 1) * ITEMS_PER_PAGE;
 
+  let fetchDatas: NoticeDataType[] | null = null;
+
 
   //Supabase fetch for only a certain table count
-  const { data:totalTableCount, count } = await supabase
+  const { data:totalTableCount, count, error } = await supabase
   .from('notices')
-  .select('*', { count: 'exact', head: true})
-
+  .select('*', { count: 'exact', head: true});
+  
+  if(error){
+    console.log("TotlatalbCound fatch failed", error)
+  }
+  
 
   //Supabase fetch based on range setting
   const { data, error:supabaseError } = await supabase
@@ -48,11 +47,14 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
     console.error("Fetching Error occured", supabaseError)
     return
   }
+  if (data && data.length > 0 ){
+    fetchDatas = data
+  }
 
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
 
-  // console.log(data)
+  // console.log(fetchDatas)
   return (
     <>
       <Header type='' />
@@ -78,14 +80,7 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
             <p>날짜</p>
           </div>
 
-
-            {
-              data ? (
-                  <NoticeList data={data} totalPages={totalPages} />
-              ) : (
-                <p>{supabaseError} </p>
-              )
-            }
+          <NoticeList data={fetchDatas} totalPages={totalPages} />
 
 
         </article>
