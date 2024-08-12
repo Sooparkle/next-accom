@@ -5,10 +5,13 @@ import Link from 'next/link'
 import styles from '../styles/Header.module.scss';
 import { usePathname, useRouter } from 'next/navigation'
 import  { IoPersonOutline } from "react-icons/io5";
-import { CiMountain1, CiMenuBurger,CiCircleList } from "react-icons/ci";
+import { CiMountain1, CiMenuBurger,CiCircleList, CiSearch } from "react-icons/ci";
 import Image from 'next/image';
 import { UserDBType } from '../util/types';
 import { singOut } from '../login/actions';
+import SearchForm from './SearchForm';
+import { MdOutlineCancel } from "react-icons/md";
+
 
 
 
@@ -79,6 +82,7 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
 
 const NavList = ({user} :{user : UserDBType |null}) => {
   const [ mypageClicked, setMypagClicked ] = useState<boolean>(false);
+  const [ mobileSearchBtn, setMobileSearchBtn ] = useState<boolean>(false);
 
   const pathname = usePathname();
   const isMypageIncluded = pathname.includes('/mypage');
@@ -103,12 +107,31 @@ const NavList = ({user} :{user : UserDBType |null}) => {
     return ()=>window.removeEventListener('click', close)
 
   },[mypageClicked]);
+  useEffect(()=>{
+    const close = () => setMobileSearchBtn(false);
+    if(mobileSearchBtn === true){
+      window.addEventListener('click', close)
+    }
+    return ()=>window.removeEventListener('click', close)
+
+  },[mobileSearchBtn]);
+
+
 
   // mypageClicked toggle button
-  const handleMypagClicked = (e:React.MouseEvent<HTMLLIElement, MouseEvent>) =>{
+  const handleMypagClicked = (e:React.MouseEvent<SVGElement, MouseEvent>) =>{
     e.stopPropagation();
     setMypagClicked(true)
   };
+
+
+
+  const haneldMobileSearch = (e:React.MouseEvent<SVGElement, MouseEvent>) =>{
+    e.stopPropagation();
+    setMobileSearchBtn(true)
+  }
+
+  console.log("mobileSearchBtn", mobileSearchBtn)
 
   
   return (
@@ -116,8 +139,8 @@ const NavList = ({user} :{user : UserDBType |null}) => {
     className={styles.nav}
   >
     <ul >
-      <li>
 
+      <li>
         <button
           onClick={handleLogo}
           className={`${pathname === "/" ? styles.active : ""} ${styles.logoBtn}`}
@@ -127,13 +150,40 @@ const NavList = ({user} :{user : UserDBType |null}) => {
         </button>
       </li>
 
+    
+
       <li
         className={`${styles.headerMypageIcon} ${isMypageIncluded ? styles.active : ""}`}
-        onClick={(e)=>handleMypagClicked(e)}
-      >
-        <CiCircleList 
-        className={styles.profile}
-        />{mypageClicked ? <MyinfoList user={user as UserDBType} /> : null}
+        >
+        <div
+          className={styles.mobileHeaderRight}
+          >
+          <CiSearch
+            onClick={(e)=>haneldMobileSearch(e)}
+            className={styles.mobileSearchBtn}
+          />{
+            mobileSearchBtn ? (
+            <div
+              onClick={(e)=>e.stopPropagation()}
+              className={styles.mobileSearchBarWrap}
+            >
+              <SearchForm type='mobile' />
+              <button
+                className={styles.mobileCancelBtn}
+                onClick={()=>setMobileSearchBtn(false)}
+              >
+                <MdOutlineCancel />
+              </button>
+            </div>
+          ) : null
+          }
+          
+          <CiCircleList 
+          className={styles.profile}
+          onClick={(e)=>handleMypagClicked(e)}
+          />{mypageClicked ? <MyinfoList user={user as UserDBType} /> : null}
+
+        </div>
       </li>
 
     </ul>
