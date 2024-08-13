@@ -87,6 +87,11 @@ $tertiary-color: #d3eac8;
     text-align: center;
     color:#fff
   }
+
+  button[aria-disabled="true"]{
+    background: #909090;
+    cursor: not-allowed;
+  }
 }
 
 }
