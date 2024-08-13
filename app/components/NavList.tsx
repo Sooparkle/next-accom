@@ -107,6 +107,7 @@ const NavList = ({user} :{user : UserDBType |null}) => {
     return ()=>window.removeEventListener('click', close)
 
   },[mypageClicked]);
+  
   useEffect(()=>{
     const close = () => setMobileSearchBtn(false);
     if(mobileSearchBtn === true){
@@ -158,16 +159,18 @@ const NavList = ({user} :{user : UserDBType |null}) => {
         <div
           className={styles.mobileHeaderRight}
           >
-          <CiSearch
+          {/* <CiSearch
             onClick={(e)=>haneldMobileSearch(e)}
             className={styles.mobileSearchBtn}
-          />{
+          /> */}
+          
+          {/* {
             mobileSearchBtn ? (
             <div
               onClick={(e)=>e.stopPropagation()}
               className={styles.mobileSearchBarWrap}
             >
-              <SearchForm type='mobile' />
+              <SearchForm type='mobile'/>
               <button
                 className={styles.mobileCancelBtn}
                 onClick={()=>setMobileSearchBtn(false)}
@@ -177,7 +180,7 @@ const NavList = ({user} :{user : UserDBType |null}) => {
             </div>
           ) : null
           }
-          
+           */}
           <CiCircleList 
           className={styles.profile}
           onClick={(e)=>handleMypagClicked(e)}

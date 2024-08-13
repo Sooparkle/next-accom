@@ -25,9 +25,9 @@ $mobile-breakpoint: 768px;
         display: none;
       }
 
-      .mobileSearchBtn{
-        display: none;
-      }
+      // .mobileSearchBtn{
+      //   display: none;
+      // }
     }
   }
 
@@ -324,7 +324,7 @@ $mobile-breakpoint: 768px;
     color: #000;
 
     &:hover{
-      color: $primary-color;
+      color:$primary-color;
     }
   }
   
@@ -389,19 +389,24 @@ $mobile-breakpoint: 768px;
 @media (max-width:$mobile-breakpoint) {
 .header{
   .searchFormWrap{
-    display: none;
+    // display: none;
 
     form{
-      // right: 5rem;
-      // min-width: 0;
+      max-width: 220px;
 
     }
 
     .inputBtn{
+      gap: 10px;
 
+      svg{
+        &:hover{
+          color: #fff;
+        }
+      }
     
       input{
-        // width: 0;
+      max-width: 140px;
       }
       
     }
@@ -423,6 +428,7 @@ $mobile-breakpoint: 768px;
   right: 50%;
 
   svg{
+    transform: translate(-50%, -50%);
     color: #fff;
     width: 46px;
     height: 46px;
@@ -477,9 +483,9 @@ $mobile-breakpoint: 768px;
           gap: 1rem;
         }
 
-        .mobileSearchBtn{
-          display: block;
-        }
+        // .mobileSearchBtn{
+        //   display: block;
+        // }
 
         .mobileSearchBarWrap{
           display: block;
@@ -490,6 +496,10 @@ $mobile-breakpoint: 768px;
           left: 0;
           background-color: rgb(0, 0, 0, .2);
           backdrop-filter: blur(3px);
+
+          button[type="submit"]:focus-visible{
+            outline: 1px solid red;
+          }
         }
       }
     }

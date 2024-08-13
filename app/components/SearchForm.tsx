@@ -8,8 +8,8 @@ import { AccomDataType } from '../util/types';
 import { useSearchStore } from '../util/useSearchStore';
 import { FaLaptopCode } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa6";
-import Link from 'next/link';
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 
 interface SearchState {
   message: string;
@@ -23,8 +23,9 @@ const initialState : SearchState = {
 }
 
 
-  const SubmitBtn = ({ input } : {input : string}) =>{
+  const SubmitBtn = ({ input,setMypagClicked } : {input : string, setMypagClicked?:(data:boolean)=> void | undefined}) =>{
   const { pending } = useFormStatus();
+
 
 
   return ( 
@@ -32,7 +33,7 @@ const initialState : SearchState = {
     type="submit"
     aria-disabled={input.length === 0 || pending}
     disabled={input.length === 0 || pending}
-  >
+    >
     <CiSearch />
   </button>
 
@@ -51,42 +52,42 @@ export const SearchForm = ({type} : {type:string}
   const refFlyer2 = useRef<HTMLAnchorElement>(null);
   const refTitle= useRef<HTMLHeadingElement>(null);
   const refInput= useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   // Zustand, search data store function
   useEffect(()=>{
-
-    if (state) {
-      searchStore.setSearchResults(state);   
-    } else {
-      console.log("SearchForm State Message", state);
+    if(state.message === 'initial'){
     }
+
+    if(state.message === 'succeful'){
+        searchStore.setSearchResults(state);
+        router.push('/search');
+      }
+
+    if(state.message === 'null')  {
+      searchStore.setSearchResults(state);
+      // console.log("SearchForm State Message", state);
+      router.push('/search');
+
+    }
+
+    
   },[state]);
 
-  console.log("refForm", refForm);
 
 
   // serch bar trasition
   useEffect(()=>{
     const transitionSearchBar = () =>{
 
-      if(window.scrollY < 100){
-        // refForm.current!.style.right = "6rem"
-        // refForm.current!.style.top = "80px"
-        // refInput.current!.style.maxWidth = "250px"
-        // refForm.current!.style.maxWidth = "370px"
-        // refFlyer1.current!.style.display = "block"
-        // refFlyer2.current!.style.display = "block"
-        // refTitle.current!.style.display = "block"
+      if(window.scrollY < 90){
+        refForm.current!.style.top = "80px"
+
       }
 
-      if(window.scrollY > 100 ){
+      if(window.scrollY > 90 ){
         refForm.current!.style.top = "10px"
-        // refForm.current!.style.maxWidth = "78px"
-        // refInput.current!.style.maxWidth = "0"
-        
-        // refFlyer1.current!.style.display = "none"
-        // refFlyer2.current!.style.display = "none"
-        // refTitle.current!.style.display = "none"
+
 
       }
 
@@ -96,24 +97,7 @@ export const SearchForm = ({type} : {type:string}
     
   },[]);
 
-  // const handleSearchBar = () =>{
-  //   console.log("work", searchBarOpoen)
-  //   if(window.screenY > 100){
-  //     if(searchBarOpoen ===false){
-  //       refInput.current!.style.maxWidth = "250px"
-  //       refForm.current!.style.maxWidth = "370px"
-  //       setSearchBarOpen(true)
-  //     }
-      
-  //     if(searchBarOpoen === true){
-  //       refInput.current!.style.maxWidth = "0"
-  //       refForm.current!.style.maxWidth = "78px"
-  //       setSearchBarOpen(false)
-  //     }
 
-  //   }
-
-  // }
 
   
   return ( type === 'mobile' ? 
@@ -132,10 +116,9 @@ export const SearchForm = ({type} : {type:string}
             className={styles.mobileInput}
             onChange={(e)=>setInput(e.target.value)}
           />
-          <SubmitBtn input={input}  />
+          <SubmitBtn input={input}   />
 
       </form>
-
     </section>
 
       ) : 
