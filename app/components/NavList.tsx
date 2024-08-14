@@ -132,8 +132,6 @@ const NavList = ({user} :{user : UserDBType |null}) => {
     setMobileSearchBtn(true)
   }
 
-  console.log("mobileSearchBtn", mobileSearchBtn)
-
   
   return (
     <nav

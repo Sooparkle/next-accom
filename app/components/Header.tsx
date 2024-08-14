@@ -49,7 +49,7 @@ export const Header = async ({type}:HeaderProps)  => {
       }
       
       {
-        type === 'search' &&  <SearchForm type="" />
+        type === 'search' ? <SearchForm type="" /> : null
       }
       
 
