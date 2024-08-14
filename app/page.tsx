@@ -1,3 +1,4 @@
+'use server'
 import SearchForm from "./components/SearchForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,10 +7,17 @@ import { createClient } from "@/supabase/clientt";
 import styles from './styles/Main.module.scss';
 import Image from "next/image";
 import Link from "next/link";
+import ConfirmPopUp from "./ConfirmpopUp";
 
-export default async function Home() {
+
+interface MessageType {
+  searchParams :{
+    message : string
+  }
+}
+
+export default async function Home({searchParams} : MessageType) {
 const supabase = createClient();
-
 
   const { data, error } = await supabase.from('accoms').select();
     if (error) {
@@ -20,11 +28,12 @@ const supabase = createClient();
     }
 
 
+    // Event Data fetching
   const { data:eventData, error:evenError } = await supabase
   .from('accoms')
   .select()
-  .eq('event', true)
-  ;
+  .eq('event', true);
+
   if (evenError) {
     console.error("Supabase Total Fetch Data failed", error);      
   }
@@ -33,8 +42,7 @@ const supabase = createClient();
   }
 
 
-
-
+  // Highg score Data fethcing
   const { data:scoreData, error:scoreError } = await supabase
   .from('accoms')
   .select()
@@ -48,7 +56,7 @@ const supabase = createClient();
   }
   return (
     <>
-    <Header type="main" />
+    <Header type="search" />
     <main 
       className={styles.mainMain}
       >
@@ -58,6 +66,7 @@ const supabase = createClient();
 
       {/* data list area */}
 
+      {/* Event Area */}
       <section
       >
         <h3>Event</h3>
@@ -65,14 +74,13 @@ const supabase = createClient();
           className={styles.mainEventWrap}
         >
           <ul
-            
           >
           {
             eventData ? (
               eventData.map((item,index) =>(
                 <li key={item.id} className={styles.accomCardWrap}>
                   <Link 
-                  href={`accoms/${item.id}`}
+                  href={`accommodation/${item.id}`}
                   >
                   <div
                     className={styles.mainImageWrap}
@@ -110,6 +118,8 @@ const supabase = createClient();
         </div>
       </section>
 
+
+      {/* High Score Area */}
       <section
       >
         <h3>High 점수</h3>
@@ -124,7 +134,7 @@ const supabase = createClient();
               scoreData.map((item,index) =>(
                 <li key={item.id} className={styles.accomCardWrap}>
                   <Link 
-                  href={`accoms/${item.id}`}
+                  href={`accommodation/${item.id}`}
                   >
                   <div
                     className={styles.mainImageWrap}
@@ -161,8 +171,13 @@ const supabase = createClient();
           </ul>
         </div>
       </section>
+      
       {
         data ?  <AccomDataList data={data}/> : <div>no data</div>
+      }
+
+      {
+        searchParams && <ConfirmPopUp searchParams={searchParams} />
       }
     </main>
     <Footer />
