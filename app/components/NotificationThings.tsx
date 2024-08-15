@@ -1,6 +1,6 @@
 
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/Setting.module.scss';
 
 const NotificationThings = () => {
@@ -10,15 +10,24 @@ const NotificationThings = () => {
   const [isSMS, toggleSMS ]= useState<boolean>(false)  
   
 
-  const handleNotificationAll = () =>{
-    setAllSetting(prev =>!prev)
-    toggleBanner(prev =>!prev)
-    toggleEmail(prev =>!prev)
-    toggleSMS(prev =>!prev)
-  }
+
+  useEffect(()=>{
+    if(allSetting === true){
+      setAllSetting(true)
+      toggleBanner(true)
+      toggleEmail(true)
+      toggleSMS(true)
+    }
+    if(allSetting === false){
+      setAllSetting(false)
+      toggleBanner(false)
+      toggleEmail(false)
+      toggleSMS(false)
+    }
+
+  },[allSetting])
+
   return (
-
-
     <section>
       {/* main all notification set  */}
       <div
@@ -35,7 +44,7 @@ const NotificationThings = () => {
             type="checkbox"
             checked={allSetting}
             aria-label="알람 설정 켜기/끄기 토글 버튼"
-            onChange={handleNotificationAll}
+            onChange={()=>setAllSetting(prev =>!prev)}
           />
           <span className={styles.sider} ></span>
         </label>
