@@ -2,12 +2,11 @@
 import SearchForm from "./components/SearchForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AccomDataList from "./components/AccomDataList";
 import { createClient } from "@/supabase/clientt";
 import styles from './styles/Main.module.scss';
 import Image from "next/image";
 import Link from "next/link";
-import ConfirmPopUp from "./ConfirmpopUp";
+import ConfirmPopUp from "./ConfirmPopUp";
 
 
 interface MessageType {
@@ -171,11 +170,6 @@ const supabase = createClient();
           </ul>
         </div>
       </section>
-      
-      {
-        data ?  <AccomDataList data={data}/> : <div>no data</div>
-      }
-
       {
         searchParams && <ConfirmPopUp searchParams={searchParams} />
       }
