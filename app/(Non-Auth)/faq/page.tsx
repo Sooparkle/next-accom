@@ -37,7 +37,6 @@ const page = async () => {
       {/* faq content area */}
       <FaqBody data={faq} />
 
-      <BackButton href='/mypage' />
     </main>
   <Footer />
   </>
