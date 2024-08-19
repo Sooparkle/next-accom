@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { createClient as DB } from '@/supabase/clientt';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import { singOut } from '@/app/login/actions';
 
 export const runtime = 'edge';
 
@@ -21,25 +22,8 @@ const page = async () => {
     redirect("/login");
   }
 
-  // const { data:fetchDB, error } = await supabaseDB
-  // .from('bookings')
-  // .select(`
-  //   guest_email,
-  //   users!inner(
-  //     email
-  //   )
-  //   `)
-  // .eq('guest_email', user.email);
 
-
-  // if(error){
-  //   console.log("Supabase BOOKINGS Data Fetch failed", error)
-  // };
-  // if(!fetchDB || fetchDB === null){
-  //   console.log("Supabase BOOKINGS Data has got some issue")
-  // };
-
-
+  //synchronise user and userDB by supabaseDB
   const { data:fetchDB, error } = await supabaseDB
   .from('bookings')
   .select('*')
@@ -56,6 +40,7 @@ const page = async () => {
   const userBookingData = fetchDB 
 
 
+  // Fetch use information from supabaseDB
   const {data:userDB, error : userError} = await supabaseDB
   .from('users')
   .select('*')
@@ -69,6 +54,7 @@ const page = async () => {
   };
 
   const userData = userDB && userDB[0];
+
 
   return (
     <main
@@ -157,15 +143,6 @@ const page = async () => {
         </ul>
         <p className={styles.version} >현재 버전 2.01.</p>
       </section>
-
-      {/* button area */}
-
-        <button
-          className={styles.logout}
-        >
-          Log-Out
-        </button>
-
 
     </main>
   )
