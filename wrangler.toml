@@ -1,0 +1,8 @@
+name = 'next-type-accommodation'
+compatibility_date = "2024-08-18"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[[kv_namespaces]]
+binding = "accommodation"
+id = "ec30b35b24db48028b72f8c9891d40d8"

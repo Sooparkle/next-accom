@@ -1,11 +1,13 @@
+
 import React from 'react';
 import styles from '../../../styles/Mypage.module.scss';
 import BackButton from '@/app/components/BackButton';
 import Image from 'next/image';
 import { IoCloseOutline } from "react-icons/io5";
 
+export const runtime = 'edge';
 
-export const page = () => {
+const page = async () => {
 
   const likesCounter : number = 3
   const isLiked: boolean = true

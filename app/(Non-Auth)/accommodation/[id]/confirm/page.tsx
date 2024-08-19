@@ -1,16 +1,18 @@
-'use server'
+
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import React, { ReactEventHandler, SyntheticEvent } from "react";
 import styles from "../../../../styles/Confirm.module.scss";
 import Image from "next/image";
-import { AccomDataType } from "@/app/util/types";
-import { CiImageOff } from "react-icons/ci";
-import { createClient as DB } from "@/supabase/clientt";
 import SubmitBtn from "./SubmitBtn";
+import { AccomDataType, UserType } from "@/app/util/types";
+import { createClient as DB } from "@/supabase/clientt";
 import { createClient } from "@/utils/supabase/server";
+import { FaHouseChimneyUser } from "react-icons/fa6";
+import { CiImageOff } from "react-icons/ci";
+import { redirect } from "next/navigation";
 
-
+export const runtime = 'edge';
 
 interface AccomType {
   params: {
@@ -19,37 +21,19 @@ interface AccomType {
 }
 
 
-export const formBtn = (formData : FormData) =>{
-  console.log("work")
-  const rawFormData = {
-    customerId: formData.get('name'),
-    email: formData.get('email'),
-    tel: formData.get('tel'),
-  }
-
-  console.log("rawFormData", rawFormData);
-}
-
-
-
-
 const page = async ({params} : AccomType) => {
   const supabaseDB = DB();
   const supabase = await createClient();
 
-
   let accomData :AccomDataType |null = null
   
-  const { data : {user} } = await supabase.auth.getUser();
 
 
-  
-
-// call User Information
+// call accommodataion Information through params
   try{
     const { data, error } = await supabaseDB
     .from('accoms')
-    .select()
+    .select("*")
     .eq('id', params.id)
 
     if(error){
@@ -67,7 +51,7 @@ const page = async ({params} : AccomType) => {
   }
 
 
-
+ // the onSubmit btn will be deleted 
   const handleSumbit = async (e:SyntheticEvent) =>{
     e.preventDefault();
 
@@ -94,16 +78,21 @@ const page = async ({params} : AccomType) => {
 
 }
 
+  // Call user information
+  const { data : {user} } = await supabase.auth.getUser();
 
-
-
+  if(!user){
+    redirect(`/accommodation/${params}`);
+  }
 
     return (
       <>
         <Header type="" />
         <main className={styles.confirmMain}>
           <section className={styles.confirmHeader}>
-            <h3>숙박 예약</h3>
+            <div 
+            ><FaHouseChimneyUser />
+            </div>
             <p>예약정보</p>
           </section>
   
@@ -114,6 +103,7 @@ const page = async ({params} : AccomType) => {
                   src={accomData.img_url}
                   fill
                   alt="본인 아바타"
+                  sizes="(max-width: 300px) 100%, (max-width: 500px) 100%"
                 />
               ) : (
                 <CiImageOff />
@@ -128,13 +118,12 @@ const page = async ({params} : AccomType) => {
                 <p>{accomData?.accom_type}</p>
                 <p>{accomData?.city} {accomData?.cityGu}</p>
               </li>
-              <li>{accomData?.description}</li>
+              {/* <li>{accomData?.description}</li> */}
             </ul>
           </section>
-  
 
-          
-          <SubmitBtn  />
+
+          <SubmitBtn accommodation={accomData as AccomDataType} user={user as UserType || null} params={params.id} />
 
 
         </main>

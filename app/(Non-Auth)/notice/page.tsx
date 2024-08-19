@@ -1,10 +1,14 @@
-'use server'
+
+
 import React from 'react';
 import styles from '../../styles/Boards.module.scss';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { createClient } from '@/supabase/clientt';
 import NoticeList from './NoticeList';
+
+
+export const runtime = 'edge';
 
 interface NoticeDataType {
   id : string;
@@ -14,11 +18,11 @@ interface NoticeDataType {
   numbers : number;
 }
 
-const ITEMS_PER_PAGE = 4;
 
 const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) => {
   const supabase = createClient();
-
+  const ITEMS_PER_PAGE = 4;
+  
   const page = searchParams.page ? parseInt(searchParams.page) : 1 ;
   const offset = (page - 1) * ITEMS_PER_PAGE;
 

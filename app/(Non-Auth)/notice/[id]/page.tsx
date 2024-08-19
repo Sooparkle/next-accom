@@ -6,6 +6,8 @@ import { createClient } from '@/supabase/clientt';
 import BackButton from '@/app/components/BackButton';
 import { formatDescription } from '@/app/util/format';
 
+export const runtime = 'edge';
+
 
 interface dataType {
   id: number;
@@ -62,7 +64,7 @@ const page = async ({
           {
             data ?(
               <>
-                <div>{formatDescription(notice?.description)}</div>
+                <div>{formatDescription(notice?.description)()}</div>
               </>
             ) : (
               <div>{error}</div>

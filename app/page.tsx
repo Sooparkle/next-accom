@@ -1,4 +1,3 @@
-'use server'
 import SearchForm from "./components/SearchForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ConfirmPopUp from "./ConfirmPopUp";
 
+
+export const runtime = 'edge';
 
 interface MessageType {
   searchParams :{

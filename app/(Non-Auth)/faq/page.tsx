@@ -1,4 +1,3 @@
-'use server'
 
 import React from 'react';
 import styles from '../../styles/Boards.module.scss';
@@ -8,6 +7,8 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import FaqBody from './FaqBody';
 
+export const runtime = 'edge';
+
 type contentsType = {
   id : number,
   category : string,
@@ -15,7 +16,7 @@ type contentsType = {
   contents : string,
 }
 
-const page = () => {
+const page = async () => {
 
 
   return (

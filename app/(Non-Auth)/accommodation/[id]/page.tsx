@@ -1,15 +1,17 @@
+
 import Footer from '@/app/components/Footer';
 import Header from '@/app/components/Header';
 import React from 'react';
 import styles from '../../../styles/AccommmodationDetail.module.scss';
-import { createClient } from '@/supabase/clientt';
+import { createClient as DB } from '@/supabase/clientt';
 import Image from 'next/image';
-import { AccomDataType } from '../../../util/types';
+import { AccomDataType, UserDBType } from '../../../util/types';
 import AsidePrice from './AsidePrice';
 import CalendarArea from './CalendarArea';
 import Link from 'next/link';
+import { createClient } from '@/utils/supabase/server';
 
-
+export const runtime = 'edge';
 
 interface AccomType {
   params: {
@@ -17,15 +19,14 @@ interface AccomType {
   };
 }
 
-
-export const revalidate = 0;
-
-export const page = async ({ params }: AccomType) => {
-  const supabase = createClient();
+ const page = async ({ params }: AccomType) => {
+  const supabaseDB = DB();
+  const supabase = await createClient();
   let accomData: AccomDataType | null = null;
 
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseDB
       .from('accoms')
       .select()
       .eq('id', params.id);
@@ -46,6 +47,33 @@ export const page = async ({ params }: AccomType) => {
   const info = accomData?.accom_info.split('/');
   const benefits = accomData?.accom_benefit.split('/');
   const cancels = accomData?.cancel.split('/');
+
+// get User data fetch
+  let userDB : UserDBType | null = null;
+
+  try{
+    const {data : {user} } = await supabase.auth.getUser();
+    
+    if(user && userDB == null){
+      const { data, error } = await supabaseDB
+      .from('users')
+      .select()
+      .eq('email', user?.email)
+
+      if(error){
+        console.log("사용자를 불러 올 수 없습니다.");
+      }
+
+      if(data && data.length > 0 ){
+        userDB = data[0]
+      }
+      
+    }
+  } catch(e){
+    console.log("Supabase Data Fetch failed", e);
+    userDB = null;
+  }
+
 
 
   return (
@@ -130,7 +158,7 @@ export const page = async ({ params }: AccomType) => {
 
             {/* right body area */}
             {
-              accomData &&    <AsidePrice accomData={accomData} />
+              accomData &&    <AsidePrice accomData={accomData} user={userDB} />
             }
 
           </section>

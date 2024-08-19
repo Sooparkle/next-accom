@@ -1,10 +1,75 @@
+
+
 import React from 'react'
 import styles from '../../styles/Mypage.module.scss';
 import { BsChevronRight, BsHeadphones, BsPencilFill } from "react-icons/bs";
 import Image from 'next/image';
 import Link from 'next/link';
+import { createClient as DB } from '@/supabase/clientt';
+import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
 
-const page = () => {
+export const runtime = 'edge';
+
+const page = async () => {
+  const supabaseDB = DB();
+  const supabase = await createClient();
+
+  const { data : { user} } = await supabase.auth.getUser();
+
+  if(!user){
+    redirect("/login");
+  }
+
+  // const { data:fetchDB, error } = await supabaseDB
+  // .from('bookings')
+  // .select(`
+  //   guest_email,
+  //   users!inner(
+  //     email
+  //   )
+  //   `)
+  // .eq('guest_email', user.email);
+
+
+  // if(error){
+  //   console.log("Supabase BOOKINGS Data Fetch failed", error)
+  // };
+  // if(!fetchDB || fetchDB === null){
+  //   console.log("Supabase BOOKINGS Data has got some issue")
+  // };
+
+
+  const { data:fetchDB, error } = await supabaseDB
+  .from('bookings')
+  .select('*')
+  .eq('guest_email', user.email);
+
+
+  if(error){
+    console.log("Supabase BOOKINGS Data Fetch failed", error)
+  };
+  if(!fetchDB || fetchDB === null){
+    console.log("Supabase BOOKINGS Data has got some issue")
+  };
+
+  const userBookingData = fetchDB 
+
+
+  const {data:userDB, error : userError} = await supabaseDB
+  .from('users')
+  .select('*')
+  .eq('email', user.email);
+
+  if(error){
+    console.log("Supabase USER Data Fetch failed", error)
+  };
+  if(!fetchDB || fetchDB === null){
+    console.log("Supabase USER Data has got some issue")
+  };
+
+  const userData = userDB && userDB[0];
+
   return (
     <main
       className={styles.mypageMain}
@@ -17,9 +82,10 @@ const page = () => {
           className={styles.imageWrap}
         >
           <Image 
-            src='https://images.unsplash.com/photo-1599687351724-dfa3c4ff81b1?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            src={ userData.image || `https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg`}
             fill
-            alt='본인 아바타'
+            sizes='width:72px hieght:72px'
+            alt={ userData }
             className={styles.avatar}
           />
           <button
@@ -30,7 +96,7 @@ const page = () => {
           </button>
         </div>
 
-        <p className={styles.name} >로그인 이름</p>
+        <p className={styles.name} >{userData.name} 님</p>
       </section>
 
       {/* content body area */}
@@ -44,7 +110,7 @@ const page = () => {
             <p>예약한 숙소</p>
             <Link
               href="/mypage/reservation"
-            >9
+            >{userBookingData?.length}
             </Link>
           </li>
           <li>

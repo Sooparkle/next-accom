@@ -1,9 +1,17 @@
 /** @type {import('next').NextConfig} */
-// const path = require('path') //SCSS
 import path from 'path';
+import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-const nextConfig = {
+const nextConfig = withAnalyzer({
+  reactStrictMode: true,
+  experimental: {
+    serverActions: true,
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -23,12 +31,15 @@ const nextConfig = {
       },
     ],
   },
-    sassOptions: {
-      // includePaths: [path.join(__dirname, 'styles')],
-      includePaths: [path.join(process.cwd(), 'styles')],
-    },
+  sassOptions: {
+    includePaths: [path.join(process.cwd(), 'styles')],
+  },
+});
 
-};
-
+if (process.env.NODE_ENV === 'development') {
+  (async () => {
+    await setupDevPlatform();
+  })();
+}
 
 export default nextConfig;

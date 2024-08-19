@@ -1,3 +1,4 @@
+
 import React from 'react'
 import styles from '../../../styles/Edit.module.scss';
 import EditPart from '@/app/components/EditPart';
@@ -5,8 +6,9 @@ import BackButton from '@/app/components/BackButton';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
-const page = () => {
+export const runtime = 'edge';
 
+const page = async () => {
 
   return (
     <>

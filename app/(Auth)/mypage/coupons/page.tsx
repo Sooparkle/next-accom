@@ -1,10 +1,11 @@
+
 import React from 'react';
 import styles from "../../../styles/Setting.module.scss";
 import BackButton from '@/app/components/BackButton';
 
+export const runtime = 'edge';
 
-
-const page = () => {
+const page = async () => {
   return (
     <main
       className={styles.mypageMain}

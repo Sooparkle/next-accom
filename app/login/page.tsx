@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Form from './Form'
 import Header from '../components/Header'
@@ -5,6 +6,8 @@ import styles from "@/app/styles/Form.module.scss"
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
+
+export const runtime = 'edge';
 
 const page = async () => {
   const supabase = await createClient();

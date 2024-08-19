@@ -1,4 +1,3 @@
-'use server'
 
 import React from 'react';
 import styles from '../../../styles/Mypage.module.scss';
@@ -10,7 +9,9 @@ import { redirect } from 'next/navigation';
 import { formatCurrency } from '@/app/util/currencyFormat';
 import CancleButton from './CancelButton';
 
-export const page = async () => {
+export const runtime = 'edge';
+
+ const page = async () => {
   const supabaseDB = DB();
   const supabase = await createClient();
 

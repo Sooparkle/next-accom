@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+
+import React from 'react'
 import styles from '../../styles/Boards.module.scss';
 import BackButton from '@/app/components/BackButton';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import EventContentsDetails from './EventContentsDetails';
+import { createClient as DB} from '@/supabase/clientt';
 
+export const runtime = 'edge';
 
 interface EventTypes {
   id : number,
@@ -12,7 +15,25 @@ interface EventTypes {
   title : string,
   contents : string,
 }
-const page = () => {
+const page = async () => {
+  const supabaseDB = DB();
+
+
+
+  let { data: events, error } = await supabaseDB
+  .from('events')
+  .select('*')
+  .order('created_at', { ascending: false })
+
+          
+  if(error){
+    console.log('Supabase Event Data Fetch failed',error)
+  }
+  if(!events || events.length === 0){
+    console.log('Supbase Event Data has issue')
+  }
+
+
 
   
   return (
@@ -38,7 +59,7 @@ const page = () => {
         <div>번호</div>
       </div>
 
-        <EventContentsDetails />
+        <EventContentsDetails EventDatas={events} />
 
       </article>
 

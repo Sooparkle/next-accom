@@ -1,9 +1,10 @@
-'use server'
 
 import React from 'react';
 import Header from '../components/Header';
 import Fooder from '../components/Footer';
 import styles from '@/app/styles/Policy.module.scss'
+
+export const runtime = 'edge';
 
 const page = async () => {
   return (
