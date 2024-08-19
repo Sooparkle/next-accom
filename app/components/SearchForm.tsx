@@ -79,16 +79,14 @@ export const SearchForm = ({type} : {type:string}
   // serch bar trasition
   useEffect(()=>{
     const transitionSearchBar = () =>{
-
-      if(window.scrollY < 90){
-        refForm.current!.style.top = "80px"
-
-      }
-
-      if(window.scrollY > 90 ){
-        refForm.current!.style.top = "10px"
-
-
+      if(refForm.current){
+        if(window.scrollY < 90){
+          refForm.current!.style.top = "80px"
+        }
+  
+        if(window.scrollY > 90 ){
+          refForm.current!.style.top = "10px"
+        }
       }
 
     };

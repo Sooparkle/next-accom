@@ -111,11 +111,6 @@ $tertiary-color : #d3eac8;
       }
       
 
-
-
-      summary{
-        
-      }
     }
   }
 
@@ -132,7 +127,7 @@ $tertiary-color : #d3eac8;
 
     .eventHead{
       display: grid;
-      grid-template-columns: 1fr 6fr;
+      grid-template-columns: 5fr 1fr;
       place-items: center;
       padding: 1.2rem 0;
       font-size: 16px;
@@ -140,24 +135,66 @@ $tertiary-color : #d3eac8;
       border-bottom:2px solid #ccc;
     }
 
-    ul{
 
-      li{  
-        display: grid;
-        grid-template-columns: 1fr 6fr;
-        place-content: center;
-        padding: 1rem 0;
-        cursor: pointer;
+  .eventDetailsTag{
+    width: 100%;
 
-        &:not(:last-child){
-        border-bottom: 1px solid #ccc;
-        
-      }
-      div:nth-of-type(1){
-        place-self: center;
-      }
-      }
+      &[open] {
+        position: relative;
+
+        &::before{
+          content: "+";
+          position: absolute;
+          top: 18px;
+          left: 0;
+        }
+        .eventBody{
+          margin-top: 10px;
+          margin-bottom: 40px;
+          padding: .2rem 1.2rem;
+          background-color: #ededed;
+          border-radius: .8rem;
+          
+        }
+      
     }
+
+
+    summary{
+      display: flex;
+      justify-content: space-between;
+      padding: 1.2rem 1rem;
+      cursor: pointer;
+      .eventDate{
+        font-size: 14px;
+        color: gray;
+      }
+    
+    &:nth-last-of-type(1){
+      border-bottom: 1px solid #ccc;
+    }
+    }
+  }
+
+
+  .eventIncrementBtn{
+    display: block;
+    margin-top: 10px;
+    width: 120px;
+    height: 46px;
+    margin-inline: auto;
+    text-align: center;
+    background-color: #ebebeb;
+    border: none;
+    border-radius: 1.6rem;
+    cursor: pointer;
+
+    &[disabled]{
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: not-allowed;
+    }
+  }
   }
 
 
@@ -234,17 +271,6 @@ $tertiary-color : #d3eac8;
     gap: 1.5rem;
     margin: 1rem 0;
 
-    // a{
-    //   display: inline-block;
-    //   padding: .6rem .8rem;
-    //   border: 1px solid #ccc;
-    //   border-radius: .2rem;
-
-    //   &:hover{
-    //     background-color: $primary-color;
-    //   }
-    // }
-
     .currentPage{
       display: inline-block;
       padding: .6rem .8rem;
@@ -314,8 +340,15 @@ $tertiary-color : #d3eac8;
 
 // notice deatil
 // area
+.noticeDetailH3{
+  color: gray;
+  font-weight: 400;
+}
 
-
+.noticeDetailBody{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 
 }
 

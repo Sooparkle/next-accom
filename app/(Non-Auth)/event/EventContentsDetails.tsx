@@ -1,17 +1,15 @@
 'use client'
 import React, { useState } from 'react'
 import styles from '../../styles/Boards.module.scss';
-import EventDatas from '@/app/data/eventDatas';
 import { formatDescription } from '@/app/util/format';
+import { EventDataType } from '@/app/util/types';
 
 
 const initialCounter = 6;
 
-const EventContentsDetails = () => {
+const EventContentsDetails = ({EventDatas}: {EventDatas : EventDataType[] | null}) => {
   const [ visualCount, setVisualCount ] = useState<number>(initialCounter)
-
-
-  console.log(visualCount)
+  
 
   return (
     <> 
@@ -21,10 +19,10 @@ const EventContentsDetails = () => {
             className={styles.eventDetailsTag}
             key={item.id}
           >
-            <summary>{item.title} <span className={styles.eventDate}>{item.date}</span></summary>
+            <summary>{item.title} <span className={styles.eventDate}>{item.created_at}</span></summary>
               <div
                 className={styles.eventBody}
-              >{formatDescription(item.contents)}</div>
+              >{formatDescription(item.contents)()}</div>
           </details>
         ))
       }
@@ -33,8 +31,8 @@ const EventContentsDetails = () => {
           <button
             className={styles.eventIncrementBtn}
             onClick={()=>setVisualCount(prev => prev + prev)}
-            disabled={visualCount === EventDatas.length||visualCount > EventDatas.length}
-          >더보기 {Math.ceil(visualCount/initialCounter)} / {Math.ceil(EventDatas.length/initialCounter)}
+            disabled={visualCount === EventDatas?.length||visualCount > EventDatas!.length}
+          >더보기 {Math.ceil(visualCount/initialCounter)} / {Math.ceil(EventDatas!.length/initialCounter)}
           </button>
         
       }

@@ -29,13 +29,14 @@ const NoticeList = ({ data:propData, totalPages }: dataType) => {
 
 
 
-  
+  // Get page information from URL
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     return `${pathname}?${params.toString()}`;
   };
 
+  //Check the page is initial visiting
   let totalPageCounter =  totalPages ? totalPages : 0;
   const data = propData ? propData : 0 ;
   const allPages = generatePagination(currentPage, totalPageCounter)();
@@ -47,7 +48,7 @@ const NoticeList = ({ data:propData, totalPages }: dataType) => {
       <ul className={styles.noticeListWrap}>
         {data && data.map((item, index) => {
           const { id, title, created_at, numbers } = item;
-          const formatDate = new Date(created_at).toLocaleDateString("en-CA");
+          const formatDate = new Date(created_at).toLocaleDateString("ko-KR");
 
           return (
             <li className={styles.noticeEachWrap} key={index}>

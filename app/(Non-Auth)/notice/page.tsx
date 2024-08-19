@@ -45,7 +45,6 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
   .select()
   .order('created_at', { ascending: false })
   .range(offset, offset + ITEMS_PER_PAGE - 1); 
-  //Limit the query result by starting at an offset (from) and ending at the offset (from + to).
 
   if(supabaseError){
     console.error("Fetching Error occured", supabaseError)
@@ -58,7 +57,6 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
 
-  // console.log(fetchDatas)
   return (
     <>
       <Header type='' />

@@ -79,3 +79,10 @@ export interface UserDBType {
   image : string | null;
   coupon : [] | null;
 }
+
+export interface EventDataType {
+  id : number;
+  created_at : string;
+  title : string;
+  contents : string;
+}

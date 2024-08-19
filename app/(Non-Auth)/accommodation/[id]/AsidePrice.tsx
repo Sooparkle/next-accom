@@ -1,21 +1,37 @@
 "use client";
-import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { AccomDataType } from "@/app/util/types";
+import React, { SyntheticEvent, useActionState, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import styles from '../../../styles/AccommmodationDetail.module.scss';
 import CalendarArea from "./CalendarArea";
+import { AccomDataType,UserDBType } from "@/app/util/types";
 import { formatCurrency } from "@/app/util/currencyFormat";
 import { FiPlus } from "react-icons/fi";
 import StayingNumberBtn from "./StayingNumber";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
+import { useRouter } from 'next/navigation';
+import { createClient } from "@/supabase/clientt";
+import useAccommodationStore from "@/app/util/useAccommodationStore";
+import useAccoms from "@/app/util/useAccoms"; 
 
+interface zustandDataType {
+  start_date: Date | null;
+  end_date: Date | null;
+  guest_numbers: number;
+  total_price: number;
+  accom_name: string;
+  accom_type: string;
+  accom_id: number;
+  extra_adult: number;
+  extra_child: number;
+}
 
-const AsidePrice = ({ accomData }: { accomData: AccomDataType }) => {
+const AsidePrice = ({ accomData, user } : { accomData: AccomDataType, user:UserDBType | null }) => {
   const asideRef = useRef<HTMLElement>(null);
+  const supabase = createClient();
+  const router =  useRouter();
   const [isCalendarOn, setIsCalendarOn ] = useState(false);
   const [isNumbersOn, setIsNumbersOn ] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
   const [ isOpenId, setIsOpenId ] = useState<number | null>(null);
-  const [ isOpen, setIsOpen ] = useState<boolean>(false);
 
   const [ startDate, setStartDate] =  useState<Date | null>(null);
   const [ endDate, setEndtDate] =  useState<Date | null>(null);
@@ -27,69 +43,35 @@ const AsidePrice = ({ accomData }: { accomData: AccomDataType }) => {
 
 
   const todayDate = new Date().toLocaleDateString('ko-KR');
+  const AccommdationStore = useAccommodationStore();
 
-  // useEffect(() => {
-  //   if (!asideRef.current) return;
-
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => {
-  //       setIsSticky(!entry.isIntersecting);
-  //     },
-  //     {
-  //       root: null, // use the viewport as the root
-  //       rootMargin: '0px',
-  //       threshold: 0 // trigger when the element is not in view
-  //     }
-  //   );
-
-  //   observer.observe(asideRef.current);
-
-  //   return () => {
-  //     observer.disconnect();
-  //   };
-  // }, []);
-
+  
   // calendar popup shutdown logic
-  useEffect(()=>{
-    const closeCalendar = () => setIsOpen(false);
-
-    if(isOpen){
-      window.addEventListener('click', closeCalendar)
+  useEffect(() => {
+    const closePopup = () => setIsOpenId(null);
+    if (isOpenId !== null) {
+      // setEndtDate(null);
+      window.addEventListener('click', closePopup);
     }
+    return () => window.removeEventListener('click', closePopup);
+  }, [isOpenId]);
 
-    return () => window.removeEventListener('click', closeCalendar);
 
-  },[isOpen]);
+  // useEffect(()=>{
+  //   const closeNumber = () => setIsNumbersOn(false);
+  //   if(isNumbersOn){
+  //     window.addEventListener('click', closeNumber);
+  //   }
+  //   return () =>window.removeEventListener('click', closeNumber)
+  // },[isNumbersOn])
 
-  const handleCalendar = (e:SyntheticEvent) =>{
-    e.stopPropagation();
-    setIsCalendarOn(p => !p);
-  }
-
-  useEffect(()=>{
-    const closeNumber = () => setIsNumbersOn(false);
-    if(isNumbersOn){
-      window.addEventListener('click', closeNumber);
-    }
-    return () =>window.removeEventListener('click', closeNumber)
-  },[isNumbersOn])
-
-  const handleNumberPopup = (e:SyntheticEvent) =>{
-    e.stopPropagation();
-    setIsNumbersOn(true)
-  }
 
   const handlePopupOpen = (id:number) =>  (e: React.MouseEvent) =>{
     e.stopPropagation();
-    if(isOpenId === id ) setIsOpen(false)
-    if(isOpenId !== id ) setIsOpen(true)
-    setIsOpenId(prev => prev === id ? null : id);
+    setIsOpenId(prev => (prev === id ? null : id))
   }
 
-
-
-  // counter total staying night
-  // useEffect(()=>{
+    //Total staying night counter
     const calculateStayingNights = () =>{
       if(!(startDate === null) && !(endDate === null)){
         if(startDate >= endDate) {
@@ -102,73 +84,143 @@ const AsidePrice = ({ accomData }: { accomData: AccomDataType }) => {
       setTotalNights(numberOfDays -1);
       }
     }
-
-    // },[endDate])
     
-    
-    
-    //
+    // 
     const handleStayingNightSet = () =>{
-    calculateStayingNights();
-    setIsOpenId(null);
+      if(setUpStartDate === setUpEndtDate) {
+        window.alert("선택한 날짜가 같아요. 다시 선택해 주세요!")
+        return;
+      }else{
+        calculateStayingNights();
+        setIsOpenId(null);
+
+      }
   }
 
 
 
-  // for browser display information
+  // for a browser display information
   const setUpStartDate = startDate?.toLocaleDateString();
   const setUpEndtDate = endDate?.toLocaleDateString();
 
-// console.log("start Data", startDate , typeof startDate);
-// console.log("ssetUpStartDate", setUpStartDate , typeof setUpStartDate);
-
-const stringToNumber = accomData?.price.replace(",", "");
-const totalPrice = totalNights !== null || totalNights !== null && totalNumbers > 0  ?
-(Number(stringToNumber) * totalNights + ( (adult*accomData.extra_adult) + (child*accomData.extra_child)) )
-  : 0;
+  const stringToNumber = accomData?.price.replace(",", "");
+  const totalPrice = totalNights !== null || totalNights !== null && totalNumbers > 0  ?
+  (Number(stringToNumber) * totalNights + ( (adult*accomData.extra_adult) + (child*accomData.extra_child)) )
+    : 0;
 
 
-// Currentcy Localization function
-let totalLocalFormatCurrency = formatCurrency(totalPrice);
+  // Currentcy Localization function
+  let totalLocalFormatCurrency = formatCurrency(totalPrice);
 
 
-// counder for adult
-const handleAdult = (buttonType : string) =>{
-  if(buttonType ==='plus'){
-    if(totalNumbers < accomData.max_occupancy ){
-      setTotalNumbers(prev => prev + 1);
-      setAdult(prev => prev + 1)
-      return
+  // counter for adult
+  const handleAdult = (buttonType : string) =>{
+    if(buttonType ==='plus'){
+      if(totalNumbers < accomData.max_occupancy ){
+        setTotalNumbers(prev => prev + 1);
+        setAdult(prev => prev + 1)
+        return
+      }
+    }
+
+    if(buttonType === 'minus'){
+      if(adult >= 0 ){
+        setTotalNumbers(prev => prev - 1);
+        setAdult(prev => prev - 1)
+        return
+      }
     }
   }
 
-  if(buttonType === 'minus'){
-    if(adult >= 0 ){
-      setTotalNumbers(prev => prev - 1);
-      setAdult(prev => prev - 1)
-      return
+  //counter for child
+  const handleChild = (buttonType : string) =>{
+    if(buttonType ==='plus'){
+      if(totalNumbers < accomData.max_occupancy ){
+        setTotalNumbers(prev => prev + 1);
+        setChild(prev => prev + 1)
+        return
+      }
     }
-  }
-}
 
-//counter for child
-const handleChild = (buttonType : string) =>{
-  if(buttonType ==='plus'){
-    if(totalNumbers < accomData.max_occupancy ){
-      setTotalNumbers(prev => prev + 1);
-      setChild(prev => prev + 1)
-      return
+    if(buttonType === 'minus'){
+      if(child >= 0 ){
+        setTotalNumbers(prev => prev - 1);
+        setChild(prev => prev - 1)
+        return
+      }
     }
   }
 
-  if(buttonType === 'minus'){
-    if(child >= 0 ){
-      setTotalNumbers(prev => prev - 1);
-      setChild(prev => prev - 1)
-      return
-    }
+  // zustand storing proecess
+  const accommodationData = useAccommodationStore();
+
+
+const handleConfirm = async () => {
+  if(totalNights === null ) {
+    window.alert("날짜를 선택해 주세요.")
+    return
   }
-}
+
+  if (!user?.name) {
+    window.alert("로그인 정보가 필요합니다. 로그인을 먼저 해주세요!");
+    router.push('/login');
+    return;
+  }
+
+  try{
+    const { data, error } = await supabase
+    .from('bookings')
+    .insert({
+      guest_name: user.name,
+      guest_email: user.email,
+      guest_phone: null,
+      start_date: startDate,
+      end_date: endDate,
+      guest_numbers: totalNumbers,
+      order_status: 'pre-confirm',
+      total_price: totalPrice,
+      accom_name: accomData?.accom_name,
+      accom_type: accomData?.accom_type,
+      accom_id: accomData.id,
+      extra_adult: adult,
+      extra_child: child,
+    })
+    .select();
+      
+    if(error){
+      console.log("숙박 예약 실패",error)
+      return
+      // throw new Error("숙박 예약 실패")
+    }
+
+
+    // store confirm datas into Zustand
+    const zustandData  = {
+      start_date: startDate,
+      end_date: endDate,
+      guest_numbers: totalNumbers,
+      total_price: totalPrice,
+      accom_name: accomData?.accom_name,
+      accom_type: accomData?.accom_type,
+      accom_id: accomData.id,
+      extra_adult: adult,
+      extra_child: child,
+    }
+    if (zustandData) {
+      accommodationData.setAccomData(zustandData as zustandDataType);
+
+    } else {
+      window.alert("데이터가 맞지 않습니다. 다시 한번 확인해 예약해 주세요.")
+    }
+
+  } catch(e){
+    console.log("예약 실패, DB 왈",e)
+  }
+
+    router.push(`${accomData.id}/confirm`);
+
+  }
+
 
 
   return (
@@ -178,8 +230,7 @@ const handleChild = (buttonType : string) =>{
     >
       {accomData ? (
         <section
-        className={`${styles.accommodationRightBodyWrap} ${
-          isSticky ? styles.sticky : ''
+        className={`${styles.accommodationRightBodyWrap} 
       }`}
         >
           <h3>₩ {accomData.price}</h3>
@@ -200,10 +251,8 @@ const handleChild = (buttonType : string) =>{
               </div>
 
 
-              {
-                isOpen && isOpenId === 2 &&
                 <section
-                  className={styles.popupCalendarWrap}
+                  className={`${styles.popupCalendarWrap} ${isOpenId===2 ? styles.active : ""}`}
                   onClick={(e)=>e.stopPropagation()}
                 >
                   <h3>날짜 선택</h3>
@@ -212,40 +261,40 @@ const handleChild = (buttonType : string) =>{
                     <CalendarArea start={setStartDate} end={setEndtDate} />
 
                   <button
-                  className={styles.calendarConfirmBtn}
+                    className={styles.calendarConfirmBtn}
                     onClick={()=>handleStayingNightSet()}
                   >확인</button>
                 </section>
+
+              {
+              accomData.rooms &&
+                <div
+                  onClick={handlePopupOpen(1)}
+                  className={styles.accomAsideNumbersWrap}
+                  tabIndex={0}
+                  role="button"
+                >
+                  {
+                    totalNumbers>0 ? (
+                      <>
+                      <span>성인 : {adult}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>어린이 : {child}</span>
+                      </>
+                    ) :(
+                      <>
+                        <FiPlus />
+                        인원수
+                      </>
+                    )
+                  }
+
+                </div>
               }
 
-              {accomData.rooms &&
-              <div
-                onClick={handlePopupOpen(1)}
-                className={styles.accomAsideNumbersWrap}
-                tabIndex={0}
-                role="button"
-              >
-                {
-                  totalNumbers>0 ? (
-                    <>
-                    <span>성인 : {adult}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>어린이 : {child}</span>
-                    </>
-                  ) :(
-                    <>
-                      <FiPlus />
-                      인원수
-                    </>
-                  )
-                }
-
-              </div>
-              }
               {accomData.rooms && 
-              isOpen && isOpenId === 1 &&
-              <section
+                <section
                 onClick={(e)=>e.stopPropagation()}
-                className={styles.accomAsideNumbers}
+                className={`${styles.accomAsideNumbers} ${isOpenId === 1 ?styles.active : ""}`}
               >
                 <h4>숙박 인원</h4>
                 <p>추가 가능 인원 : {accomData?.max_occupancy - totalNumbers}</p>
@@ -306,17 +355,35 @@ const handleChild = (buttonType : string) =>{
 
 
               <button
-                onClick={handleCalendar}
+                onClick={()=>handleConfirm()}
               >
                 예약하기
-              </button>
+              </button >
             </div>
 
           <p className={styles.accommodationPriceWrap}>
             <span>₩ {accomData.price}</span>
             x
-            <span>{totalNights ? totalNights : "숙박일 수"}</span>
+            <span>{totalNights ? totalNights : "(숙박일 수)"}</span>
           </p> 
+
+          { 
+            accomData.rooms &&
+            <p className={styles.accommodationPriceWrap}>
+            {
+              totalNights ? (
+                <>
+                  <span>₩ {totalNights * Number(stringToNumber)}</span>
+                  <span>성인 {adult} + 어린이 {child}</span>
+                </>
+              ) : (
+                <>
+                  <span>숙박일수</span>
+                  <span>추가 인원</span>
+                </>
+              )}
+          </p> 
+          }
 
           <div
             className={`${styles.accommodationPriceWrap} ${styles.accommodationTotalPriceWrap}`}

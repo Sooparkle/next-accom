@@ -10,7 +10,7 @@ import CalendarArea from '../CalendarArea';
 import { formatCurrency } from '@/app/util/currencyFormat';
 import { AccomDataType } from "@/app/util/types";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-
+import { useRouter } from 'next/navigation'
 
 const initialState = {
   message : "",
@@ -32,10 +32,18 @@ const SubmitButton = ({preConfirmData} : {preConfirmData : ConfirmDataType | nul
   )
 }
 
-const SubmitBtn = ({accommodation, user} : {accommodation : AccomDataType, user : UserType | null}) => {
+const SubmitBtn = ({
+  accommodation,
+  user,
+  params
+} : {
+  accommodation : AccomDataType,
+  user : UserType | null
+  params : string
+}) => {
   const [ state, formAction ] = useFormState(confirmSumbitFn, initialState); 
   const accoms = useStore(useAccommodationStore, (state) => state.accomData) ;
-  
+  const router = useRouter();
   const start = accoms?.start_date?.toISOString().split('T');
   const end = accoms?.end_date?.toISOString().split('T');
   let total = accommodation ?  accommodation.extra_adult + accommodation.extra_child : 0;
@@ -49,6 +57,9 @@ const SubmitBtn = ({accommodation, user} : {accommodation : AccomDataType, user 
   const [ totalStayingNights, setTotalStayingNights ] = useState<number>(0);
   const [ totalStayingPrice, setTotalStayingPrice ] = useState<number>(accoms?.total_price || 0);
 
+  if(!accoms){
+    router.push(`/accommodation/${params}`);
+  }
   
     const basicPrice = Number(accommodation ? accommodation?.price.replace(",", "") : 0);
     const extraAdultPrice = accommodation?.extra_adult * adult;
@@ -352,8 +363,10 @@ const SubmitBtn = ({accommodation, user} : {accommodation : AccomDataType, user 
 
           {
           state &&
-          <p>{state.message}</p>
-        }
+          <p
+            className={styles.wornMessage}
+          >{state.message}</p>
+          }
         <SubmitButton preConfirmData={accoms} />
 
         </form>

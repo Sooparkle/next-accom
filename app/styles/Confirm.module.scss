@@ -45,6 +45,12 @@ $tertiary-color: #d3eac8;
         border-radius: 1rem;
       }
     }
+
+    ul{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 
 
@@ -86,6 +92,10 @@ $tertiary-color: #d3eac8;
         }
         &:focus::placeholder{
           color: transparent;
+        }
+
+        &[type="email"]{
+          color: #909090;
         }
       }
     }
@@ -204,5 +214,12 @@ $tertiary-color: #d3eac8;
     & > div:nth-last-of-type(1){
       order: 3;
     }
+  }
+
+  .wornMessage{
+    text-align: center;
+    color :red;
+    font-weight: 500;
+    letter-spacing: 2px;
   }
 }
