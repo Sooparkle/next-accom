@@ -4,13 +4,12 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Header.module.scss';
 import { usePathname, useRouter } from 'next/navigation'
-import  { IoPersonOutline } from "react-icons/io5";
-import { CiMountain1, CiMenuBurger,CiCircleList, CiSearch } from "react-icons/ci";
+import { IoPersonOutline } from "react-icons/io5";
+import { CiMountain1,CiCircleList } from "react-icons/ci";
 import Image from 'next/image';
 import { UserDBType } from '../util/types';
 import { singOut } from '../login/actions';
-import SearchForm from './SearchForm';
-import { MdOutlineCancel } from "react-icons/md";
+
 
 
 
@@ -59,17 +58,13 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
         </p>
       </div>
 
-      <ul>
-        <li>
+      <div
+        className={styles.linkWrap}
+      >
           <Link scroll={false} href='/notice'>공지사항</Link>
-        </li>
-        <li>
           <Link scroll={false} href='/event'>이벤트</Link>
-        </li>
-        <li>
           <Link scroll={false} href='/faq'>FAQ</Link>
-        </li>
-      </ul>
+      </div>
 
       <div
         className={styles.popupLogOutWrap}

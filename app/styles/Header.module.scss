@@ -64,9 +64,9 @@ $mobile-breakpoint: 768px;
         transition: all 400ms ease-in-out;
         width: 100%;
         top: 80px;
-        right: 50%;
-        left: 50%;
-        transform: translateX(-50%);
+        // right: 50%;
+        // left: 50%;
+        // transform: translateX(-50%);
       }
   
       .inputBtn{
@@ -231,11 +231,11 @@ $mobile-breakpoint: 768px;
 
     }
 
-    ul{
+    .linkWrap{
       display: grid;
       
 
-      li{
+      a{
         padding: .8rem 0;
         padding-left: 1rem;
         cursor: pointer;
