@@ -62,9 +62,6 @@ const page = async () => {
         <EventContentsDetails EventDatas={events} />
 
       </article>
-
-      <BackButton href='/mypage' />
-
       </main>
       <Footer />
     </>

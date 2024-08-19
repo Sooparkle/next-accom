@@ -71,7 +71,7 @@ const page = async ({
             )
           }
         </section>
-        
+        <BackButton href='/notice' />
       </main>
     <Footer />
     </>
