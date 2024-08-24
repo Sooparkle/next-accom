@@ -110,7 +110,9 @@ $tertiary-color: #d3eac8;
           padding: 6px 1rem;
           color: #6a6a6a;
           border-bottom: 1px solid #ccc;
-
+          & >div{
+            max-height: 40px;
+          }
           & >div:nth-of-type(1){
             margin-bottom: 10px;
           }
