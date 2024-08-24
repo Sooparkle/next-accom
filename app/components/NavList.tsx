@@ -66,11 +66,18 @@ const MyinfoList =  ({user} : {user : UserDBType}) =>{
           <Link scroll={false} href='/faq'>FAQ</Link>
       </div>
 
-      <div
-        className={styles.popupLogOutWrap}
-      >
-        <button onClick={handleSignOut}>Sign Out</button>
-      </div>
+
+      {
+        user ? (
+          <div
+          className={styles.popupLogOutWrap}
+          >
+            <button onClick={handleSignOut}>Sign Out</button>
+        </div>
+        ) : null
+
+      }
+
     </section >
   )
 }
