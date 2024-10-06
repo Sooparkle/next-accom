@@ -90,13 +90,11 @@ $tertiary-color: #d3eac8;
 
       .accomAsideDateNumberBox{
         display: grid;
-        // grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
         position: relative;
         margin-top: 10px;
         margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        cursor: pointer;
 
 
 
@@ -110,9 +108,12 @@ $tertiary-color: #d3eac8;
           padding: 6px 1rem;
           color: #6a6a6a;
           border-bottom: 1px solid #ccc;
+          
           & >div{
             max-height: 40px;
+            cursor: pointer;
           }
+
           & >div:nth-of-type(1){
             margin-bottom: 10px;
           }
@@ -136,10 +137,20 @@ $tertiary-color: #d3eac8;
         }
 
         .accomAsideNumbersWrap{
+          position: relative;
           padding: .8rem 1rem ;
+          
           & > svg{
             vertical-align: sub;
             margin-right: 10px;
+          }
+          
+          .accomAddBtn{
+            cursor: pointer;
+
+            & svg{
+              vertical-align: text-top;
+            }
           }
 
         }
@@ -152,40 +163,41 @@ $tertiary-color: #d3eac8;
 
           &.active{
             display: block;
-          position: absolute;
-          top: 0;
-          right: 0;
-          padding: 1rem 1.5rem;
-          background-color: #fff;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
-          border-radius: 1rem;
-          &>p{
-            margin: 10px 0 20px 0;
-          }
-          
-          button:focus-visible{
-            outline: 2px solid red;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+            border-radius: 1rem;
+            z-index: 10;
+            &>p{
+              margin: 10px 0 20px 0;
+            }
+            
+            button:focus-visible{
+              outline: 2px solid red;
 
-          }
+            }
 
-          .calendarConfirmBtn{
-            all:unset;
-            margin-top: 10px;
-            width: 100%;
-            height: 50px;
-            text-align: center;
-            background-color: $primary-color;
-            border-radius: .4rem;
-          }
+            .calendarConfirmBtn{
+              all:unset;
+              margin-top: 10px;
+              width: 100%;
+              height: 50px;
+              text-align: center;
+              background-color: $primary-color;
+              border-radius: .4rem;
+            }
 
 
-          // Calendar Wrap
-          .CalendarWrap{
+            // Calendar Wrap
+            .CalendarWrap{
 
-            & > div{
-              border: none;
-              .sunday{
-                color: #82bd69;
+              & > div{
+                border: none;
+                .sunday{
+                  color: #82bd69;
                 
               }
             }
@@ -204,14 +216,13 @@ $tertiary-color: #d3eac8;
           &.active {
           display: block;
           position: absolute;
-          top: 74%;
+          top: 0;
           right: 0;
           padding: 1rem 1.5rem;
           background-color: #fff;
           box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
           border-radius: 1rem;
-          width: 320px;
-
+          width: 100%;
           
           p{
             color: #222222;
@@ -230,13 +241,14 @@ $tertiary-color: #d3eac8;
               .accomAsideNumberSetBtns{
                 display: flex;
                 gap: 1rem;
-                align-items: stretch;
+                align-items: center;
                 justify-content: space-between;
                 width: 104px;
 
                 button{
                   all: unset;
                   background-color: #fff;
+                  cursor: pointer;
 
                   svg{
                     font-size: 30px;
@@ -261,6 +273,18 @@ $tertiary-color: #d3eac8;
             margin-top: 10px;
             border-top: 1px solid #ccc;
             font-size: 1.2rem;
+          }
+
+          .accomTotalNumverConfirm{
+            all: unset;
+            width: 100%;
+            height: 48px;
+            background: #82bd69;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222222;
+            margin-top: 10px;
           }
         }
       }
@@ -287,5 +311,18 @@ $tertiary-color: #d3eac8;
         border-top: 1px solid #ccc;
       }
     }
+  }
+}
+
+
+
+@media screen and (max-width : 768px) {
+  .accomsDetailMain{
+    .accomBody{
+     grid-template-columns: 1fr;
+     margin-top : 3rem;
+     margin-bottom: 4rem;
+    }
+
   }
 }
