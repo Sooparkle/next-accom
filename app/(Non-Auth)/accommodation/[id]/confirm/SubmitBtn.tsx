@@ -218,7 +218,7 @@ const SubmitBtn = ({
                 type="tel"
                 id="tel"
                 name='tel'
-                placeholder="010-1234-1234"
+                placeholder="01077771973, 입력"
                 pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                 
               />
@@ -233,6 +233,7 @@ const SubmitBtn = ({
                 name='email'
                 value={user?.email}
                 required
+                readOnly
               />
             </label>
           </div>
@@ -340,13 +341,7 @@ const SubmitBtn = ({
           
           <div>
             <p
-              style={{
-                fontSize:"2rem",
-                marginTop:"1rem",
-                textAlign:"right",
-                paddingTop: "1rem",
-                borderTop: "1px solid #ccc"
-              }}
+              className={styles.totalPriceText}
             >{totalLocalFormatCurrency}</p>
             <label
               className='hide'
