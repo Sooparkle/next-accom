@@ -10,6 +10,7 @@ import AsidePrice from './AsidePrice';
 import CalendarArea from './CalendarArea';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
+import HistoryBack from '@/app/components/HistoryBack';
 
 export const runtime = 'edge';
 
@@ -163,7 +164,7 @@ interface AccomType {
 
           </section>
 
-
+          <HistoryBack />
           
         </article>
       </main>

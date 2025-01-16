@@ -86,6 +86,7 @@ const page = async ({ searchParams} : { searchParams: {page?:string | null} } ) 
 
 
         </article>
+
       </main>
       <Footer />
     </>
