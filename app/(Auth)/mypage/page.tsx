@@ -56,6 +56,18 @@ const page = async () => {
   const userData = userDB && userDB[0];
 
 
+    // fetch Likes data
+
+    const {data: likeDB, error : likeError} = await supabaseDB
+    .from("likes")
+    .select("count", {count: 'exact'})
+  
+    if(likeError){
+      console.log("Failed Like Table Data count ")
+    }
+
+    console.log("Like Count", likeDB)
+
   return (
     <main
       className={styles.mypageMain}
@@ -103,7 +115,7 @@ const page = async () => {
             <p>찜한 숙소</p>
             <Link
               href="/mypage/likes"
-            >9
+            >{likeDB && likeDB[0].count}
             </Link>
           </li>
 
