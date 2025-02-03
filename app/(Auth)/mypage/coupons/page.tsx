@@ -6,6 +6,9 @@ import BackButton from '@/app/components/BackButton';
 export const runtime = 'edge';
 
 const page = async () => {
+
+
+
   return (
     <main
       className={styles.mypageMain}
