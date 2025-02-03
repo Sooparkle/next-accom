@@ -349,6 +349,7 @@ $tertiary-color : #d3eac8;
       box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
       padding: .8rem 1.2rem;
       position: relative;
+      overflow: hidden;
 
       .likesDetailWrap{
         gap: 1.2rem;
@@ -403,17 +404,24 @@ $tertiary-color : #d3eac8;
         .likesCancelBtn{
           all:unset;
           position: absolute;
-          padding: 10px;
+          padding: 12px;
           top: 0px;
-          right: 2px;
+          right: 0px;
           cursor: pointer;
 
           svg{
             width: 30px;
             height: 30px;
             stroke: gray;
-          }
 
+          }
+          
+          &:hover{
+            background: #ccc;
+            border-radius: 6px;
+            
+            
+          }
 
         }
     }
