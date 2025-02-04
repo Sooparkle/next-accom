@@ -7,10 +7,9 @@ import { createClient as DB } from '@/supabase/clientt';
 import Image from 'next/image';
 import { AccomDataType, UserDBType } from '../../../util/types';
 import AsidePrice from './AsidePrice';
-import CalendarArea from './CalendarArea';
-import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
 import HistoryBack from '@/app/components/HistoryBack';
+import { LikeButton } from './LikeButton';
 
 export const runtime = 'edge';
 
@@ -20,7 +19,7 @@ interface AccomType {
   };
 }
 
- const page = async ({ params }: AccomType) => {
+const page = async ({ params }: AccomType) => {
   const supabaseDB = DB();
   const supabase = await createClient();
   let accomData: AccomDataType | null = null;
@@ -105,7 +104,21 @@ interface AccomType {
             <div 
               className={styles.accomBodyHeaderWrap}
             >
+              <div
+                className={styles.headerLikeContainer}
+              >
+
               <h2>{accomData ? accomData.accom_name : "현재 불러올 수 있는 데이터가 없습니다."}</h2>
+              {
+                userDB ? (
+                  <LikeButton user={userDB.email} />
+                ) :(
+                  <LikeButton user={null} />
+                )
+              }
+
+
+              </div>
               <ul>
                 <li>
                   <span>{accomData?.province}</span>

@@ -314,14 +314,35 @@ $tertiary-color: #d3eac8;
   }
 }
 
+.headerLikeContainer{
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.likesButtonContainer{
+  display: block;
+  cursor: pointer;
+
+  & >button{
+    all: unset;
+  }
+
+  & svg{
+    width: 28px;
+    height: 28px;
+  }
+}
+
 
 
 @media screen and (max-width : 768px) {
   .accomsDetailMain{
     .accomBody{
-     grid-template-columns: 1fr;
-     margin-top : 3rem;
-     margin-bottom: 4rem;
+      grid-template-columns: 1fr;
+      margin-top : 3rem;
+      margin-bottom: 4rem;
     }
 
   }
