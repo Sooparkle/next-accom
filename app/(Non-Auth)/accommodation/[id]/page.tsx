@@ -1,7 +1,7 @@
 
 import Footer from '@/app/components/Footer';
 import Header from '@/app/components/Header';
-import React from 'react';
+import React, { Suspense } from 'react';
 import styles from '../../../styles/AccommmodationDetail.module.scss';
 import { createClient as DB } from '@/supabase/clientt';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import AsidePrice from './AsidePrice';
 import { createClient } from '@/utils/supabase/server';
 import HistoryBack from '@/app/components/HistoryBack';
 import { LikeButton } from './LikeButton';
+import Loading from '@/app/components/Loading';
 
 export const runtime = 'edge';
 
@@ -20,6 +21,10 @@ interface AccomType {
 }
 
 const page = async ({ params }: AccomType) => {
+
+  await new Promise (resolve => setTimeout(resolve, 2000))
+
+
   const supabaseDB = DB();
   const supabase = await createClient();
   let accomData: AccomDataType | null = null;
@@ -74,10 +79,22 @@ const page = async ({ params }: AccomType) => {
     userDB = null;
   }
 
+  const { data: likesDB, error : likesError } = await supabaseDB
+  .from('likes')
+  .select("like, accom")
+
+  if(likesError){
+    console.log('관심등록 데이터를 가져오는 데, 오류가 발생했습니다.')
+  }
+
+  if(!likesDB) return
+  const liked = likesDB.some(like => like.accom === Number(params.id));
+  const accomId = likesDB.find(like => like.accom === Number(params.id));
 
 
   return (
     <>
+    {/* <Suspense fallback={<Loading />} > */}
       <Header type='' />
 
       <main className={styles.accomsDetailMain}>
@@ -109,13 +126,11 @@ const page = async ({ params }: AccomType) => {
               >
 
               <h2>{accomData ? accomData.accom_name : "현재 불러올 수 있는 데이터가 없습니다."}</h2>
-              {
-                userDB ? (
-                  <LikeButton user={userDB.email} />
-                ) :(
-                  <LikeButton user={null} />
-                )
-              }
+
+                  <LikeButton 
+                  user={ userDB ? userDB.email : null} 
+                  initialLiked={liked}
+                  />
 
 
               </div>
@@ -183,6 +198,7 @@ const page = async ({ params }: AccomType) => {
       </main>
 
       <Footer />
+    {/* </Suspense> */}
     </>
   );
 }
